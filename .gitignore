@@ -33,3 +33,37 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+
+*.db*.pyc
+*.pyo
+*.html~
+*.css~
+
+
+#for pdfs
+._*.pdf
+
+#for gedit
+*~
+~*
+
+
+#the local sqlite database
+*.db
+*.sqlite
+
+#for dir
+
+django/
+registration/
+SMS Project in Python/
+project_files/
+phonenumber_field/
+SMS-sdk/
+grappelli/
+basic_admin/
+dj_simple_sms/
+smsreportcard/assets/
+smsreportcard/templates/
+grappelli/
