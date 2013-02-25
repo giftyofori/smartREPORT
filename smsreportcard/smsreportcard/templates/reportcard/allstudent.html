@@ -1,0 +1,40 @@
+{% extends 'home/main.html'%}
+
+{%block mainblock%}
+    
+<div class="span9">
+<div class="hero-unit">
+{% for student in students%}
+    <h6>
+    <div class="row-fluid">
+    <div class="span1">
+    {{student.id_number}}
+    </div>
+    <div class = span3>
+    <a href="/report/student/{{student.id}}/">{{student.first_name}}<span>  </span>{{student.last_name}}
+    </div>
+    <div class="span2">
+    </a> <a href="/report/asr/{{student.id}}/"> add REPORT </a>
+    </div>
+    
+    <div class="span2">
+        </a> <a href="/report/vas/{{student.id_number}}/"> view REPORTS </a>
+    </div>
+    <div class="span2">
+        </a> <a href="/msgs/sms/{{student.id}}"> send SMS </a>
+    </div>
+    <div class="span2">
+        </a> <a href="/msgs/email/{{student.id}}/"> send EMAIL </a>
+    </div>
+    </div>
+    </h6>
+    {% empty %}
+    <h3>There No Student In The System </h3>
+    <p><h6><a href="/report/addstudent/"> Start Adding </a></h6></p>
+    
+{% endfor %}
+
+</div>
+</div>
+
+{%endblock%}

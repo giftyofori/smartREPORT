@@ -1,0 +1,109 @@
+{% extends 'home/main.html'%}
+{% load rc_tags %}
+
+{%block mainblock%}
+<div class="span9">
+<div class="hero-unit">
+    <div class="row-fluid">
+        <div class="span6">
+            <h3>{{studentinfo.student_name}}</h3>
+        </div>
+        
+    </div>
+  
+
+    <div class= "row-fluid">
+        <div class = "span2">
+            <h6>System Number :</h6>
+            
+            <h6>Course :</h6>
+            <h6>Form :</h6>
+        </div>
+        <div class="span4">
+            <h6>{{studentinfo.id_number_student}}</h6>
+            
+            <h6>{{studentinfo.course}}</h6>
+            <h6>{{studentinfo.form}} </h6>
+      
+        </div>
+        <div class="span2">
+            <h6>Updated on :</h6>
+            {% if user.is_staff%}
+            <h6>Updated by :</h6>
+            {% endif%}
+            <h6>Current Term: </h6>
+            
+        </div>
+        <div class="span4">
+            <h6>{{studentinfo.date_created}}({{studentinfo.date_created|timesince}})</h6>
+            {%if user.is_staff%}{% ifequal user studentinfo.teacher %}<h6><a href="/admin/">You</a></h6>{%else%}
+            <h6>{{studentinfo.teacher}}<h6>{% endifequal%}{% endif %}
+            <h6>{{studentinfo.term}}</h6>
+            
+        </div>
+        
+    </div>
+    
+    <!-- Report Content -->
+    
+    <hr>
+
+    <div class="row-fluid">
+       {% for report , reportcontent in reports.items %}
+           <div class="row-fluid">
+                <div class="span3">
+                   <h6> Academic Level : </h6>
+                </div>
+                <div class="span4">
+                    <h6>{{report.form}}</h6>
+                  
+                </div>
+             
+           </div>
+            <div class="row-fluid">
+                <div class="span3">
+                   <h6> Term :</h6>
+                </div>
+                <div class="span4">
+                   <h6> {{report.term}}</h6>
+                  
+                </div>
+             
+           </div>
+        <div class="row-fluid">
+           <br>
+            {%for item in reportcontent %}
+                <div class="span3">
+                    {{item.subject}}
+                </div><!-- end span --> 
+                <div class="span3">
+                    total score
+                </div><!-- end span --> 
+                <div class="span2">
+                    {{item.percentage}}%
+                </div><!-- end span -->
+                     <div class="span3">
+                    {{item.grade}}
+                </div>  <!-- end span -->         
+              
+              
+          
+            {% endfor %}
+             </div><!-- end row-fluid (inner for loop) -->
+             <hr>
+        {% endfor %}
+    </div><!-- end of report content-->
+    <hr>
+
+    
+</div>
+</div>
+{% for report , reportcontent in reports.items%}
+    <p>{{report.term}}</p>
+    {% for i in reportcontent %}
+    <p>{{i.subject}}{{i.grade}}</p>{% endfor%}
+    {% endfor%}
+
+{% endblock %}
+
+

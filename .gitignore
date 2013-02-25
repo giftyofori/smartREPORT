@@ -55,15 +55,12 @@ nosetests.xml
 
 #for dir
 
-django/
-registration/
-SMS Project in Python/
-project_files/
-phonenumber_field/
-SMS-sdk/
-grappelli/
-basic_admin/
-dj_simple_sms/
-smsreportcard/assets/
-smsreportcard/templates/
-grappelli/
+smsreportcard/django/
+smsreportcard/registration/
+smsreportcard/SMS Project in Python/
+smsreportcard/project_files/
+smsreportcard/phonenumber_field/
+smsreportcard/SMS-sdk/
+smsreportcard/grappelli/
+smsreportcard/basic_admin/
+smsreportcard/dj_simple_sms/

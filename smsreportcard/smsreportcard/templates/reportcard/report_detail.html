@@ -1,0 +1,261 @@
+{% extends "home/main.html"%}
+
+{%block extrahead%}
+
+{% endblock %}
+{% if reports%}
+{% block mainblock %}
+<div class="span9">
+   <div class = "hero-unit2">
+    <h3>
+	 {% for i in reports%}
+	  {{i.student_name}}'s  Report  Datail
+	  
+	  {%endfor%}
+	 
+     </h3>
+    </div><!-- end hero-unit2 -->
+    <!-- uncomment to enable hero unit <div class = "hero-unit">
+    -->
+    <div class="row-fluid">
+     <hr>
+       <div class = span4>
+	 <p> Course </p>
+	 <p> Term </p>
+	 
+	 <p> SHS Level </p>
+	 <p> Report Created By </p>
+	 <p>Date Created</p>
+	 
+       </div>
+       
+       <div class="span7">
+	{% for i in reports %}
+	   <p> {{i.course }} </p>
+	   
+	
+	
+	   <p> {{i.term}} </p>
+	
+	    {% if i.form %}
+	    {% ifequal 1 i.form %}
+	     <p> One </p>
+	    {% endifequal %}
+	    
+	    {% ifequal 2  i.form %}
+	     <p> Two </p>
+	     
+	    {% endifequal %}
+	    
+	    {% ifequal 3 i.form %}
+	     <p> Three </p>
+	     
+	    {% endifequal %}
+	    
+	    {% endif %}
+	    <p>{{ user }}</p>
+	    <p> {{i.date_created}} </p>
+	    
+	   
+	  
+       </div>
+  <h6><a href="/report/vas/{{i.id_number_student}}/" style="text-decoration: none">view all</a></h6>
+	 {% endfor %}
+  <hr style="color:red">
+   <div class="row-fuild">
+    <hr style="width: 23.2cm">
+    </div><!-- hr between  report and f=report content -->
+   
+   <div class="row-fuild"><!-- heading for report content -->
+       <div class="span4">
+	<h5 style="margin-left: 25px"> Subject </h5>
+       </div>
+       
+       <div class="span2">
+	 <h5> Examination mark </h5>
+	 
+       </div>
+       
+      <div class="span2">
+	 <h5> Test mark</h5>
+	 
+       </div>
+       <div class="span2">
+	 <h5> Percentage</h5>
+	 
+       </div>
+	     
+       <div class="span2">
+	 <h5 style="margin-left: 6px"> Grade </h5>
+	 
+       </div>
+       
+       
+   </div><!-- end of heading -->
+        
+   
+     <div class="row-fluid"   > <!-- report content -->
+     
+    
+	
+     
+     <div class="span4">
+       {% for i in subjects %}
+	
+       
+   <ul>{{i.subject}}</ul>
+   {% endfor%}
+   </div>
+     
+     <div class= "span2">
+       {% for i in subjects %}
+     <ul> {{i.exam_mark}}</ul>
+     {% endfor%}
+     </div>
+     
+     <div class= "span2">
+       {% for i in subjects %}
+     <ul> {{i.test_mark}}</ul>
+     {% endfor%}
+     </div>
+     
+     <div class= "span2">
+       {% for i in subjects %}
+     <ul> {{i.percentage}}%</ul>
+     {% endfor%}
+     </div>
+     
+     
+     <div class= "span2">
+       {% for i in subjects %}
+     <ul> {{i.grade}}</ul>
+     {% endfor%}
+     </div>
+       
+    
+
+
+      
+       <!-- </div>  uncomment to enable hero-unit2 -->
+     </div><!-- end report content-->
+   <div class="row-fuild">
+    <hr style="width: 23.2cm">
+    </div><!-- hr between report content and remark -->
+          
+     <div class= "row-fluid"><!-- remarks -->
+
+        <div class="span2">
+	 <p style="margin-left:25px"> Remark </p>
+	</div>
+	<div class="span6">
+       {%for i in reports%}
+      
+
+     
+      <p> {{i.remark}} </p>
+     {%endfor%}
+     </div>
+     </div><!-- end remarks -->
+     
+        <div class="row-fuild">
+    <hr style="width: 23.2cm">
+    </div><!-- hr between remark  and links-->
+     
+     
+     <div class="row-fluid"><!-- buttoms -->
+        <div class = span6><!-- next and previous buttoms -->
+	<h6>
+	 {% for i in reports %}
+	  
+	 <a href="/report/detail/{{i.id|add:"-1"}}/" style="text-decoration:none !important ; margin-left:25px">pervious</a>
+	<a href="/report/detail/{{i.id|add:"1"}}/" style="text-decoration:none !important ; margin-left: 50px">  next <!--&raquo; --></a>
+	{% endfor%}
+	</h6>
+	</div><!-- end next and pre buttoms-->
+	<div class="span3">
+	 <h6 style="margin-left: 70px">Send Report Via <h6>
+	 </div>
+	<div class="span2">
+	 <h6><a href="#" style="text-decoration:none !important">E-mail</a>
+	  
+	<a href="#" style="text-decoration:none !important ; margin-left: 50px">SMS</a>
+	 
+	</div>
+	<div class="span6"> <!-- send buttoms -->
+	</div><!-- end send buttoms -->
+      
+     </div>
+     
+
+
+
+
+
+
+</div><!-- end span9 -->
+
+
+
+{% comment %}
+<hr>
+<div>
+{% for i in reports %}
+
+<p>Student Name : {{i.student_name}} </p>
+<table  border="1">
+
+</div>
+
+<div class="hero-unit3">
+<p> Course : {{i.course }} </p>
+{% ifequal 1 i.form %}
+<p> SHS Level : One  &nbsp;</p>
+{% endifequal%}
+{% ifequal 2 i.form %}
+<p> SHS Level : Two  &nbsp;</p>
+{% endifequal%}
+{% ifequal 3 i.form %}
+<p> SHS Level : Three &nbsp;</p>
+{% endifequal%}
+{{endif}}
+
+<p> Report Created By  {{user}} <p>
+<p>     Date Created : {{i.date_created}} </p>
+
+</table>
+{% endfor %}
+
+
+<br>
+<tr><td>Subject</td><td>Examination Mark</td></tr>
+<br>
+{% for i in subjects %}
+<div>
+       <table width= "800px" border="1">
+	       <tr>
+	       <td> {{i.subject}} &nbsp;</td>
+   
+		       <td>{{i.exam_mark}}</td>
+		       <td>{{i.test_mark}}</td>
+		       <td> {{i.percentage}}% </td>
+		       <td>{{i.grade}} &nbsp;</td>
+	       </tr>
+
+       </table>
+</div>
+{% endfor %}
+
+<!-- Remarks -->
+{%for i in reports%}
+<br>
+
+<br>
+       <p> Remark {{i.remark}} </p>
+{%endfor%}
+
+</div>
+
+{% endcomment %}
+
+{% endblock %}
+{% endif %}

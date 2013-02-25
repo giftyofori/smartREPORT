@@ -1,0 +1,110 @@
+{% extends 'home/main.html'%}
+{% block extrahead%}
+<link rel="stylesheet" href="/static/bootstrap/css/report.css" type="text/css" media="screen" charset="utf-8"/>
+
+
+{% endblock %}
+
+{%block mainblock%}
+<div class="span9">
+<div class="hero-unit">
+
+
+<form action="/report/addstudent/" method ="post">
+</table><h3>Add Student</h3>
+        <hr>
+        <div class= "row-fluid">
+        <tr>
+            <label><h6> Student Identity Number </h6></label>
+            <div class="span1">
+            <td>{{studentform.id_number}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class= "row-fluid">        
+        <tr>
+            <label><h6> Student Name </h6></label>
+            <div class="span3">
+            <h6 style="color:pink">{{studentform.first_name.errors}}</h6>
+            <td >{{studentform.first_name}} </td>
+            </div>
+            <div class="span3"
+            <h6 style="color:pink">{{studentform.middle_name.errors}}</h6>
+            <td>{{studentform.middle_name}} </td>
+            </div>
+            <div class="span3">
+             <h6 style="color:pink">{{studentform.last_name.errors}}</h6>
+            <td>{{studentform.last_name}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class="row-fluid">
+            
+        <tr>
+            
+            <label><h6>Course </h6></label>
+            <div class="span4">
+            <h6 style="color:pink">{{studentform.course.errors}}</h6>
+            <td>{{studentform.course}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class="row-fluid">
+        <tr>
+            <label><h6> SHS Level </h6></label>
+            <div class="span5">
+            <h6 style="color:pink">{{studentform.form.errors}}</h6>
+            <td>{{studentform.form}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+       <div class="row-fluid">
+        <tr>
+        <label><h6>Parent Contact</h6></label>
+        <div class="span5">
+            <h6 style="color:pink">{{studentform.Email.errors}}</h6>
+            <td>{{studentform.Email}} </td>
+            <em>eg. kofi@gmail.com</em>
+        </tr>
+        <br>
+        <tr>
+            <h6 style="color:pink">{{studentform.phone_number.errors}}</h6>
+            <td>{{studentform.phone_number}} </td>
+            <em> eg. +233241111113</em>
+        </div>
+        </tr>
+        
+        </div>
+        <hr>
+        <div class ="row-fluid">
+        <tr>
+            <label><h6>Student Infomation </h6></label>
+           <div class="span5"> 
+            <td>{{studentform.city}} </td>
+        </tr>
+        <br>
+        <tr>
+            <td>{{studentform.country}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <br>
+    </table>
+        
+    
+
+
+    
+    <!--<input type = "submit" name = "add"  value = "add student"> -->
+    <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 18cm">add student</button>
+</form>
+
+</div>
+</div>
+
+{%endblock%}

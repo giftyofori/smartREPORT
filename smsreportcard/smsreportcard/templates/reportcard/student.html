@@ -1,0 +1,58 @@
+{% extends 'home/main.html'%}
+
+{% block mainblock %}
+    
+<div class="span9">
+    <div class= "hero-unit">
+        <h6>Recently Added </h6>
+        <hr>
+        {%for attr in student %}
+            <div class="row-fluid">
+                <div class=span3>
+                    <h6>System Number :</h6>
+                    <br>
+                    <h6>Student Name :</h6>
+                    <br>
+                    <h6>Course :</h6>
+                    <br>
+                    <h6>SHS Level :</h6>
+                    <br>
+                    <h6>phone Number :</h6>
+                    <br>
+                    <h6>Email Address :</h6>
+                    
+                    
+                    
+                </div>
+                
+                <div class="span6">
+                    <h6>{{attr.id_number}}</h6>
+                    <br>
+                    <h6>{{attr.first_name}}<span>  </span>{{attr.middle_name}}<span>  </span>{{attr.last_name}}</h6>
+                    <br>
+                    <h6>{{attr.course}}</h6>
+                    <br>
+                    <h6>{{attr.form}}</h6>
+                    <br>
+                    <h6>{{attr.phone_number}}</h6>
+                    <br>
+                    <h6>{{attr.Email}}</h6>
+                </div>
+                
+                
+            </div>
+            
+            
+        {% endfor %}
+        <hr>
+         {% if user.is_staff %}   
+        <div class="row-fluid">
+            <h6><a href="#" style="text-decoration: none">Edit</a></h6>
+        </div>
+        {% endif %}
+            
+        
+    </div>
+</div>
+
+{%endblock%}

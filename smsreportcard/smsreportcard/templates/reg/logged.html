@@ -1,0 +1,18 @@
+<html>
+<head>
+<style type="text/css">
+p{
+margin-left:12cm;
+margin-right:6cm;
+}
+</style>
+</head>
+<body>
+{% for log in logged_users %}
+<p> {{log}} </p>
+{% empty %}
+<p> No login Users at this time </p>
+
+{% endfor %}
+</body>
+</html>
