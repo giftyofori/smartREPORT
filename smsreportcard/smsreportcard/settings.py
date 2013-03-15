@@ -14,6 +14,7 @@ ADMINS = (
 )
 
 GEOS_LIBRARY_PATH = ''
+CSRF_COOKIE_DOMAIN =''
 
 MANAGERS = ADMINS
 
@@ -22,7 +23,6 @@ DATABASES = {
         dj_database_url.config(default="sqlite:/smartreport.db")
         
 }
-
 
 
 # Email Settings
@@ -200,3 +200,4 @@ LOGGING = {
     }
 }
 GRAPPELLI_ADMIN_TITLE ="Smart Report v01"
+LOGIN_URL = '/accounts/login/?next=/kab234/'

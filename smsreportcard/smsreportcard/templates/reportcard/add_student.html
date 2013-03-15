@@ -1,6 +1,23 @@
 {% extends 'home/main.html'%}
 {% block extrahead%}
 <link rel="stylesheet" href="/static/bootstrap/css/report.css" type="text/css" media="screen" charset="utf-8"/>
+                <script>
+                <!--
+                    function idnum(){
+                        var idnum = {{idnum}};
+                        return 'DO NOT EDIT! \n If ID Number Has changed please Enter ' + idnum;
+                    }
+                    
+                    function helpemail(){
+                        return document.getElementById("emailhelp").innerHTML="<h6 style='color:#99CCFF'>example@gmail.com <strong style='color:red'>*</strong></h6>";
+                        
+                    }
+                    
+                    function helpphone(){
+                       return  document.getElementById("phonehelp").innerHTML="<h6 style='color:#99CCFF'>eg. +233241111113 <strong style='color:red'>*</strong></h6>";
+                    }
+                -->   
+                </script>
 
 
 {% endblock %}
@@ -17,6 +34,7 @@
         <tr>
             <label><h6> Student Identity Number </h6></label>
             <div class="span1">
+
             <td>{{studentform.id_number}} </td>
             </div>
         </tr>
@@ -31,7 +49,8 @@
             </div>
             <div class="span3"
             <h6 style="color:pink">{{studentform.middle_name.errors}}</h6>
-            <td>{{studentform.middle_name}} </td>
+
+            <td><input {%if not studentform.first_name.errors or not studentform.last_name.errors %}id="id_middle_name"{%else%}id="id_middle_name_error"{%endif%} type="text" placeholder="Other Name" name="middle_name" maxlength="50" />  </td>
             </div>
             <div class="span3">
              <h6 style="color:pink">{{studentform.last_name.errors}}</h6>
@@ -67,14 +86,16 @@
         <label><h6>Parent Contact</h6></label>
         <div class="span5">
             <h6 style="color:pink">{{studentform.Email.errors}}</h6>
+            <p id="emailhelp"></p>
             <td>{{studentform.Email}} </td>
-            <em>eg. kofi@gmail.com</em>
+          
         </tr>
         <br>
         <tr>
             <h6 style="color:pink">{{studentform.phone_number.errors}}</h6>
+            <p id="phonehelp"></p>
             <td>{{studentform.phone_number}} </td>
-            <em> eg. +233241111113</em>
+            
         </div>
         </tr>
         
@@ -101,10 +122,10 @@
 
     
     <!--<input type = "submit" name = "add"  value = "add student"> -->
-    <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 18cm">add student</button>
+    <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 580px">add student</button>
 </form>
 
 </div>
 </div>
-
+{{idnum}}
 {%endblock%}

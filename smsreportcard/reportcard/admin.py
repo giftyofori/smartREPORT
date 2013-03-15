@@ -11,7 +11,7 @@ class ReportcontentInline(admin.TabularInline):
 class ReportAdmin(admin.ModelAdmin):
 	inlines = [ReportcontentInline]
 	list_display = ['student_name' , 'course' , 'teacher','term' , 'date_created']
-	list_filter = ['course','term','date_created','teacher']
+	list_filter = ['student_name','course','term','date_created','teacher']
 	order = 0
 
 class ESInline(admin.TabularInline):

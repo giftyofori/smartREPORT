@@ -36,10 +36,21 @@
                 <div class="span4">
                   <!--Something here -->
                 </div>
-                <div class="span7">
-                  <h1> Object Not Found </h1>
+                <div class="span7" style="color:pink">
+                  <h1>{{message}} </h1>
                   <hr>
+                  <div class="row-fluid">
+                   <div class="span2"> 
                   <h6><a href="/kab234/">GO HOME </a></h6>
+                  </div>
+                   <div class="span6">
+                  {%ifequal status "mt9"%}
+                      {%if user.is_staff%}<h6><a href="/admin/reportcard/report/">enter admin site</a></h6>
+                        {%else%}<h6><a href="#">tell admin</a><h6>
+                      {%endif%}
+                  {%endifequal %}
+                  </div>
+                  </div>
                 </div>
               </div>
             

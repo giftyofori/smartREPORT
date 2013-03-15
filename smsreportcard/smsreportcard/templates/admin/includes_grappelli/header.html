@@ -1,8 +1,8 @@
 {% load i18n grp_tags %}{% load url from future %}
 
 <div id="grp-navigation">
-    <h1 id="grp-admin-title">{% if grappelli_admin_title %}{{ grappelli_admin_title }}{% else %}<a href="/kab234/">{% get_admin_title %}</a>{% endif %}</h1>
-    <h1 id="grp-admin-title" style="margin-left: 25cm;"><a href="/kab234/">enter site</a></h1>
+    <h1 id="grp-admin-title">{% if grappelli_admin_title %}{{ grappelli_admin_title }}{% else %}<a href="/kab234/" >{% get_admin_title %}</a>{% endif %}</h1>
+    <h1 id="grp-admin-title" style="margin-left: 25cm;"><a href="/kab234/" target="_blank">enter site</a></h1>
 <!--<a href="" style="margin-left: 24cm ; margin-top: 10cm;">vist site</a> -->
     {% if user.is_authenticated and user.is_staff %}
         <ul id="grp-user-tools">

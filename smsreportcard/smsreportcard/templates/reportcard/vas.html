@@ -1,9 +1,9 @@
 {% extends 'home/main.html'%}
-{% load rc_tags %}
+
 
 {%block mainblock%}
 <div class="span9">
-<div class="hero-unit">
+<div class="hero-unitvas">
     <div class="row-fluid">
         <div class="span6">
             <h3>{{studentinfo.student_name}}</h3>
@@ -93,16 +93,13 @@
              <hr>
         {% endfor %}
     </div><!-- end of report content-->
+    <h6>Number of reports :{{num}}
     <hr>
 
     
 </div>
 </div>
-{% for report , reportcontent in reports.items%}
-    <p>{{report.term}}</p>
-    {% for i in reportcontent %}
-    <p>{{i.subject}}{{i.grade}}</p>{% endfor%}
-    {% endfor%}
+
 
 {% endblock %}
 

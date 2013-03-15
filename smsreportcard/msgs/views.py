@@ -1,4 +1,4 @@
-from reportcard.models import Student
+from reportcard.models import Student , Report ,Report_content
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -68,6 +68,29 @@ def sendsms(request ,pk):
     return render_to_response('msgs/sendmsg.html' ,dict(student = student ,smsform = smsform , user = request.user, action="sms"))
             
   
+
+
+def _sendsms(request , pk):
+    if request.method == "GET":
+        report = Report.objects.get(pk = pk)
+        reports = Report.objects.filter(pk = pk)
+        student = Student.objects.get(id_number = report.id_number_student)
+        reportcontent = Report_content.objects.filter(report = report)
+        student_details = "%(fname)s %(lname)s\nCourse:%(course)s\n" %{'fname':student.first_name , 'lname':student.last_name ,'course':student.course[:3]}
+        message = ''
+        for item in reportcontent:
+            message = message + "%s %s\n" %(item.subject,item.grade)
+        #print student_details+message ; print len(student_details+message)
+        message = SMS(to_number = student.phone_number , from_number = "SHS" , body = student_details + message)
+        message.send()
+        if message:
+            status = "Report Sent"
+        else:status = "Report Not Sent"
+        return render_to_response("reportcard/report_detail.html",dict(reports = reports , subjects = reportcontent,user=request.user,status=status))
+
+
+def sndmsg(request):
+    return render_to_response('msgs/create_msg.html',dict(user=request.user))
 
 """
 @csrf_exempt

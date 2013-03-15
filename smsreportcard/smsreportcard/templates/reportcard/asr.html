@@ -1,4 +1,5 @@
 {% extends "home/main.html"%}
+{%block title %} <title> SR | add report to  {{student.first_name}} {{student.last_name}} </title> {% endblock%}
 
 {% block extrahead%}
 <link rel="stylesheet" href="/static/bootstrap/css/report.css" type="text/css" media="screen" charset="utf-8"/>
@@ -17,7 +18,7 @@
 
 <table>
 <tr>{{rform.id_number_student.errors}}
-	<td>  {{rform.id_number_student.label_tag }} </td>
+	<td> ID Number</td>
 	<td>{{rform.id_number_student}}</td>
 </tr>
 <tr>{{rform.id_number.errors}}
@@ -46,14 +47,85 @@
 </tr>
 </table>
 <hr>
+ 
 
+{% if rcform.0.errors or rcform.1.errors or rcform.2.errors or rcform.3.errors or rcform.4.errors or rcform.5.errors or rcform.6.errors or rcform.7.errors%}
+<div class="row-fluid">
+	
+</div>
 
-{% for form in rcform %}
-{{form.subject.errors}}{{form.exam_mark.errors}}{{form.test_mark.errors}}{{form.percentage.errors}}{{form.grade.errors}}
-{{form.subject}}{{form.exam_mark}}{{form.test_mark}}{{form.percentage}}{{form.grade}} 
+<input name="f0-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text"  value="" {%if rcform.0.subject.errors %}id="subjecterror" class="subject"{%else%}id="id_f0-subject"{%endif%} />
+<input name="f0-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f0-exam_mark" />
+<input name="f0-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f0-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f0-percentage" id="intform" />
+<input name="f0-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f0-grade" /> 
 <br>
-{% endfor %}
+
+
+<input name="f1-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="" id="id_f1-subject" />
+<input name="f1-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f1-exam_mark" />
+<input name="f1-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f1-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f1-percentage" id="intform" />
+<input name="f1-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f1-grade" /> 
+<br>
+
+
+<input name="f2-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="" id="id_f2-subject" />
+<input name="f2-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f2-exam_mark" />
+<input name="f2-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f2-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f2-percentage" id="intform" />
+<input name="f2-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f2-grade" /> 
+<br>
+
+
+<input name="f3-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="" id="id_f3-subject" />
+<input name="f3-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f3-exam_mark" />
+<input name="f3-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f3-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f3-percentage" id="intform" />
+<input name="f3-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f3-grade" /> 
+<br>
+
+
+<input name="f4-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="" id="id_f4-subject" />
+<input name="f4-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f4-exam_mark" />
+<input name="f4-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f4-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f4-percentage" id="intform" />
+<input name="f4-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f4-grade" /> 
+<br>
+
+
+<input name="f5-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="Chemistry" id="id_f5-subject" />
+<input name="f5-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="70" id="id_f5-exam_mark" />
+<input name="f5-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="20" id="id_f5-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f5-percentage" id="intform" />
+<input name="f5-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f5-grade" /> 
+<br>
+
+
+<input name="f6-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="" id="id_f6-subject" />
+<input name="f6-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f6-exam_mark" />
+<input name="f6-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f6-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f6-percentage" id="intform" />
+<input name="f6-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f6-grade" /> 
+<br>
+
+
+<input name="f7-subject" maxlength="50" placeholder="Enter Subject Name Here" type="text" class="subject" value="" id="id_f7-subject" />
+<input name="f7-exam_mark" maxlength="3" placeholder="Examination Mark" type="text" class="intform" value="" id="id_f7-exam_mark" />
+<input name="f7-test_mark" maxlength="2" placeholder="Test Mark" type="text" class="intform" value="" id="id_f7-test_mark" />
+<input type="text" placeholder="Percentage" class="intform" name="f7-percentage" id="intform" />
+<input name="f7-grade" maxlength="2" placeholder="Grade" type="text" class="grade" id="id_f7-grade" /> 
+<br>
+{%else%}
+
+{% for i in rcform %}
+
+{{form.subject.errors}}{{form.exam_mark.errors}}{{form.test_mark.errors}}{{form.percentage.errors}}{{form.grade.errors}}
+{{i.subject}}{{i.exam_mark}}{{i.test_mark}}{{i.percentage}}{{i.grade}} 
+<br>
+{%endfor%}
 <hr>
+{% endif %}	
 	{{rform.remark.errors}}
 <p> {{rform.remark.label_tag}} <span> {{rform.remark}}
 
@@ -61,10 +133,12 @@
 <p>{{remark.remark.label_tag}}<span>{{remark.remark}}</span></p>
 </div>
 <hr>
+	
+
 
 
 <!--<input type = "submit" name = "add"  value = "add report"> -->
-	<button class="btn btn-primary" type="submit" style="margin-left: 15.1cm">ADD REPORT</button>
+	<button class="btn btn-primary" type="submit" style="margin-left: 430px">ADD REPORT</button>
 
 </form>
 <!-- end of form -->

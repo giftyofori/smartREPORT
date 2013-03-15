@@ -652,7 +652,7 @@ blockquote small:before {
 blockquote.pull-right {
   float: right;
   padding-right: 15px;
-  padding-left: 0;
+  padding-left: 0
   border-right: 5px solid #eeeeee;
   border-left: 0;
 }
@@ -5163,6 +5163,19 @@ table td, table th
     
     
 }
+/* style for vas only*/
+.hero-unitvas {
+  padding: 60px;
+  margin-bottom: 30px;
+  background-color:none;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+#id_middle_name_error{
+  margin-top: 27px;
+}
+
 /*
  table
 {

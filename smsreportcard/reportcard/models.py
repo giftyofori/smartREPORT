@@ -54,7 +54,7 @@ def get_course():
 
 class Student(models.Model):
 
-	id_number = models.PositiveIntegerField(max_length = 6 , default = get_id_number() , editable = False)
+	id_number = models.PositiveIntegerField(max_length = 6 , default = get_id_number() , unique = True)
 	first_name = models.CharField(max_length = 50 )
 	middle_name = models.CharField(max_length = 50 , blank = True , null = True)
 	last_name = models.CharField(max_length = 50)
@@ -64,9 +64,10 @@ class Student(models.Model):
 	phone_number = PhoneNumberField("Phone Number" , max_length = 13)
 	city = models.CharField("City or Town" , max_length = 50)
 	country = models.CharField("Nationality" , max_length = 50)
+	#created_on = models.DateTimeField(auto_now = True)
 	
 	def __unicode__(self):
-		return self.first_name
+		return str(self.id_number)
 	
 	def get_absolute_url(self):
 		return '/report/student/%s/' % self.id
@@ -183,7 +184,7 @@ class Report(models.Model):
 	teacher = models.CharField(max_length = 50, default = "logged in user" )
 	term = models.CharField(max_length = 10 ,choices = TERMS , default = "First")
 	remark = models.TextField(max_length = 300)
-	student = models.ForeignKey(Student)
+	student = models.ForeignKey(Student ,null=True , blank = True)
 
 	def __unicode__(self):
 		return self.student_name

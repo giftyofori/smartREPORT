@@ -17,6 +17,20 @@
     </div><!-- end hero-unit2 -->
     <!-- uncomment to enable hero unit <div class = "hero-unit">
     -->
+    {% ifequal status "Report Sent" %}
+       <div class="row-fluid">
+	 <h6 style="color:pink; margin-left: 400px">{{status}}</h6>
+	         <div class = span6><!-- next and previous buttoms -->
+	<h6>
+	 {% for i in reports %}
+	  
+	 <a href="/report/detail/{{i.id|add:"-1"}}/" style="text-decoration:none !important ; margin-left:25px">pervious</a>
+	<a href="/report/detail/{{i.id|add:"1"}}/" style="text-decoration:none !important ; margin-left: 50px">  next <!--&raquo; --></a>
+	{%endfor%}
+	</h6>
+	</div><!-- end next and pre buttoms-->
+       </div>
+       {% endifequal %}
     <div class="row-fluid">
      <hr>
        <div class = span4>
@@ -169,20 +183,24 @@
 	  
 	 <a href="/report/detail/{{i.id|add:"-1"}}/" style="text-decoration:none !important ; margin-left:25px">pervious</a>
 	<a href="/report/detail/{{i.id|add:"1"}}/" style="text-decoration:none !important ; margin-left: 50px">  next <!--&raquo; --></a>
-	{% endfor%}
+	
 	</h6>
 	</div><!-- end next and pre buttoms-->
+	{%ifnotequal status "Report Sent"%}
 	<div class="span3">
 	 <h6 style="margin-left: 70px">Send Report Via <h6>
 	 </div>
 	<div class="span2">
 	 <h6><a href="#" style="text-decoration:none !important">E-mail</a>
 	  
-	<a href="#" style="text-decoration:none !important ; margin-left: 50px">SMS</a>
-	 
+	<a href="/msgs/sendsms/{{i.id}}/" style="text-decoration:none !important ; margin-left: 50px">SMS</a>
+	 {% endifnotequal %}
 	</div>
+	{% endfor %}
 	<div class="span6"> <!-- send buttoms -->
+	
 	</div><!-- end send buttoms -->
+	
       
      </div>
      
