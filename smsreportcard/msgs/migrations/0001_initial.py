@@ -92,16 +92,30 @@ class Migration(SchemaMigration):
             'sent_on': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'student': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Student']"})
         },
+        'reportcard.class': {
+            'Meta': {'object_name': 'Class'},
+            'classcode': ('django.db.models.fields.IntegerField', [], {'max_length': '5'}),
+            'course': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Course']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '20'})
+        },
+        'reportcard.course': {
+            'Meta': {'object_name': 'Course', 'db_table': "'course'"},
+            'course_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'number_student': ('django.db.models.fields.IntegerField', [], {'max_length': '4'})
+        },
         'reportcard.student': {
             'Email': ('django.db.models.fields.EmailField', [], {'max_length': '50', 'blank': 'True'}),
             'Meta': {'object_name': 'Student', 'db_table': "'students'"},
             'city': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'clas': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Class']", 'null': 'True', 'blank': 'True'}),
             'country': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'course': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'form': ('django.db.models.fields.IntegerField', [], {'max_length': '1'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'id_number': ('django.db.models.fields.PositiveIntegerField', [], {'default': '100', 'max_length': '6'}),
+            'id_number': ('django.db.models.fields.PositiveIntegerField', [], {'default': '100', 'unique': 'True', 'max_length': '6'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'middle_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'phone_number': ('phonenumber_field.modelfields.PhoneNumberField', [], {'max_length': '13'})

@@ -57,8 +57,8 @@ class Report_contentForm(forms.Form):
 	subject = forms.CharField(max_length = 50 ,label = "" , widget=forms.TextInput(attrs={'class':'subject','placeholder':'Enter Subject Name Here'}))
 	exam_mark = forms.IntegerField(max_value =  100 ,label = "" , initial =70,widget=forms.TextInput(attrs={'class':'intform' ,'placeholder':'Examination Mark' ,'maxlength':'3'}))
 	test_mark = forms.IntegerField(max_value =  200 ,label = "" ,initial =20, widget=forms.TextInput(attrs={'class':'intform' ,'placeholder':'Test Mark','maxlength':'2'}))
-	percentage = forms.IntegerField(max_value = 100 , required = False , label = "" , widget=forms.TextInput(attrs={'class':'intform' ,'id':'intform' , 'placeholder':'Percentage'}))
-	grade = forms.CharField(max_length = 2, required = False , label = "",widget=forms.TextInput(attrs={'class':'grade', 'placeholder':'Grade'}))
+	percentage = forms.IntegerField(max_value = 100 , required = False , label = "" , widget=forms.TextInput(attrs={'class':'intform','style':'background-color:rgba(0,0,0,0.1)' , 'placeholder':'Percentage'}))
+	grade = forms.CharField(max_length = 2, required = False , label = "",widget=forms.TextInput(attrs={'class':'grade', 'placeholder':'Grade','style':'background-color:rgba(0,0,0,0.1)'}))
 
 
 	def __init__(self , report = None , *args , **kwargs):
@@ -69,27 +69,32 @@ class Report_contentForm(forms.Form):
 		_test_mark = self.cleaned_data['test_mark']
 		#print '70 % of exam mark ' + str(_exam_mark) +' is '  + str(int(_exam_mark * 0.7))
 		#print '30 % of test mark ' + str(_test_mark) +' is ' + str(int(_test_mark ))
-		percent = int(round((_exam_mark * 0.7) + (_test_mark * 1)))
-		if percent >= 70:
-			grade = "A"
-		elif percent <=69 and percent >=65:
-			grade = "B2"
-		elif percent <=64 and percent >=60:
-			grade = "B3"
-		elif percent <=59 and percent >=55:
-			grade = "C4"
-		elif percent <=54 and percent >=50:
-			grade = "C5"
-		elif percent <=49 and percent >=45:
-			grade = "C6"
-		elif percent <=44 and percent >=40:
-			grade = "E8"
-		elif percent <=39 and percent >=0:
-			grade = "F9"
+		if not self.cleaned_data['percentage']:
+			percent = int(round((_exam_mark * 0.7) + (_test_mark * 1)))
+			if percent >= 70:
+				grade = "A"
+			elif percent <=69 and percent >=65:
+				grade = "B2"
+			elif percent <=64 and percent >=60:
+				grade = "B3"
+			elif percent <=59 and percent >=55:
+				grade = "C4"
+			elif percent <=54 and percent >=50:
+				grade = "C5"
+			elif percent <=49 and percent >=45:
+				grade = "C6"
+			elif percent <=44 and percent >=40:
+				grade = "E8"
+			elif percent <=39 and percent >=0:
+				grade = "F9"
+			else:
+				return None
+			report_content = Report_content(report = self.report, subject = self.cleaned_data['subject'] , exam_mark = self.cleaned_data['exam_mark'] , test_mark = self.cleaned_data['test_mark'] , percentage = percent, grade = grade)
+			report_content.save()
 		else:
-			return None
-		report_content = Report_content(report = self.report, subject = self.cleaned_data['subject'] , exam_mark = self.cleaned_data['exam_mark'] , test_mark = self.cleaned_data['test_mark'] , percentage = percent, grade = grade)
-		report_content.save()
+			report_content = Report_content(report = self.report, subject = self.cleaned_data['subject'] , exam_mark = self.cleaned_data['exam_mark'] , test_mark = self.cleaned_data['test_mark'] , percentage = self.cleaned_data['percentage'], grade = self.cleaned_data['grade'])
+			report_content.save()
+			
 	def validate_exam_mark(self):
 		if self.cleaned_data['exam_mark'] > 100:
 			raise forms.ValidationError(_("Examination Mark Cannot be more than 100"))
@@ -99,12 +104,39 @@ class RemarkForm(forms.Form):
 	remark = forms.CharField(max_length = 300, widget=forms.Textarea(attrs={'class':'remarkstyle'}) ,initial = "Good Work More Room for Improvement")
 
 """
-This form  id used in add report wizzard by a teacher or system user to choose a class
-to get all studets in that class offering that subject
+This form  is used in add report wizzard by a teacher or system user to choose a class
+to get all studets in that class offering that subject it needs a function called getallclass() that collect all class names in the system
 """
+def getallclass():
+	try:
+		allclass = Class.objects.all()
+		classtuple = ()
+		for i in range(len(allclass)):
+			classtuple = classtuple + ((str(allclass[i]),str(allclass[i])),)
+		return classtuple
+	except:
+		return (('ACTS','ACTS'),)#In the future i will be redirecting to the admin page
+
+def getcourseofstudent(selectedclass):# function is used by arw function in views.py to get the elective subjects of the selected class
+	clas = Class.objects.get(name=selectedclass)#get the selected class from db
+	course = clas.course # get the course of tha  class
+	electivesubjects = Elective_subjects.objects.filter(course = course)#get all elective subjects of that class
+	return electivesubjects
+
+def  maketupleofsubjects(electivesubjects):# used after getcourseofstudent to make a tuple of all subjects of that course of a class
+	subjects = (('Core Maths','Core Maths'),('English','English'),('Intergrated Science','Intergrated Science'),('Social Studies','Social Studies'))
+	for i in range(len(electivesubjects)):
+		subjects = subjects + ((str(electivesubjects[i]),str(electivesubjects[i])),)
+	return subjects
+	
+	
+	
+	
+
+	
+
 class ClassForm(forms.Form):
-	CLASSES = (('SC1','SC1'),('SC2','SC2'),)
-	classes = forms.ChoiceField(widget=forms.Select(attrs={}), choices=CLASSES)
+	classes = forms.ChoiceField(widget=forms.Select(attrs={'onclick':'nextlink();'}), choices=getallclass())
 
 """
 class ReportForm(forms.Form):

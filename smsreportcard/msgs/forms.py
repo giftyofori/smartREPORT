@@ -14,4 +14,4 @@ class SMSform(ModelForm):
     class Meta:
         model = Email
         exclude = ['student','sent_by','sent_on']
-        widgets = {'body': forms.Textarea(attrs={"placeholder":"..............SMS body(120 words Maximun)","style":"width:500px ; height:150px"})}
+        widgets = {'body': forms.Textarea(attrs={"placeholder":"..............SMS body(120 words Maximun)","style":"width:500px ; height:150px","maxlength":"300"})}

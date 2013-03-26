@@ -23,10 +23,16 @@ def get_id_number():
 		return id_number
 	except : #DoesNotExist :
 		return 100
+
+
+	
+	
+
+
+
 """
 Course Model
 """
-
 class Course(models.Model):
 	course_name = models.CharField(max_length = 50)
 	number_student = models.IntegerField("Students Offering Course" ,max_length = 4)
@@ -46,7 +52,23 @@ def get_course():
 			course_tuple = course_tuple + ((str(courses[i]),str(courses[i])),)
 		return course_tuple
 	except:
-		return (('No Course Available in The System','Science'),)
+		return (('ATSB','Science'),)
+
+
+"""
+class or SHS level model
+"""
+class Class(models.Model):
+	name = models.CharField(max_length = 20)
+	classcode = models.CharField(max_length=5)
+	course = models.ForeignKey(Course)
+	
+	
+	def __unicode__(self):
+		return self.name
+	class Meta:
+		tb_table = "class"
+	
 
 	
 
@@ -64,6 +86,9 @@ class Student(models.Model):
 	phone_number = PhoneNumberField("Phone Number" , max_length = 13)
 	city = models.CharField("City or Town" , max_length = 50)
 	country = models.CharField("Nationality" , max_length = 50)
+	clas = models.ForeignKey(Class,null = True, blank = True)
+	
+	
 	#created_on = models.DateTimeField(auto_now = True)
 	
 	def __unicode__(self):

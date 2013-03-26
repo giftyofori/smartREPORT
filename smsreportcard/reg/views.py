@@ -11,6 +11,8 @@ from django.core.context_processors import csrf
 from django.template import RequestContext
 from reg.models import LoggedUser
 from django.contrib.auth.decorators import login_required
+from srHttp.HttpRequestPermissionDenied import *
+
 
 @login_required
 def main(request):
@@ -47,8 +49,11 @@ def add_csrf(request ,  **kwargs):
 	return d
 @login_required
 def logged(request):
-	logged_users = LoggedUser.objects.all().order_by('username')
-	return render_to_response('reg/logged.html', dict(logged_users = logged_users  ), context_instance = RequestContext(request))
+	user = request.user
+	if user.is_staff:
+		logged_users = LoggedUser.objects.all().order_by('username')
+		return render_to_response('reg/logged.html', dict(logged_users = logged_users), context_instance = RequestContext(request))
+	else: return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion To View Logged Users")
 
 
 

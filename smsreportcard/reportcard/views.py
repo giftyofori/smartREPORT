@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django import forms
 from django.forms.formsets import formset_factory
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse , HttpResponseRedirect ,HttpResponseNotFound
@@ -133,7 +134,7 @@ def add_StudentReport(request , pk ):
 	pass
 
 """
-View all report of a student
+View all report of a student :::vas
 """
 @login_required
 def vas(request , studentid):
@@ -226,19 +227,46 @@ version 0.1
 @login_required
 def arw(request , stage):
 	# check the stage...there are 3 stages
-	classform = None
-	status = 'No'
-	if request.method =="GET":
-		if stage == "stage1":
-			classform = ClassForm()
-			status = "stage1"
-	return render_to_response('reportcard/arw.html',dict(stage = stage ,classform=classform,status=status ,user = request.user))
+	user = request.user
+	if user.has_perm('reportcard.add_report') or user.has_perm('reportcard.change_report') or user.has_perm('reportcard.delete_report'):
+		form = None
+		status = 'No'
+		allstudent = None
+		studentrc = None
+		if request.method =="GET":
+			if stage == "stage1":
+				form = ClassForm()
+				status = "stage1"
+				print "stage 1"
+			if stage == "stage2":
+				selectedclass = request.GET.get('classes','none')#get the selected class from the stage 1
+				#getcourseofstudent(selectedclass)
+				class SubjectForm(forms.Form):
+					clas = forms.CharField(max_length=None,min_length=None,initial=selectedclass, widget=forms.HiddenInput(attrs={}))
+					subjects = forms.ChoiceField(widget=forms.Select(attrs={'onclick':'nextlink();'}), choices=maketupleofsubjects(getcourseofstudent(selectedclass)))
+				form = SubjectForm()
+				print "we are in stage two"
+				status="stage2"
+			if stage =="stage3":
+				status ='stage3'
+				data = request.GET
+				clas=data.get('clas','None')
+				subjects = data.get('subjects','None')
+				clas = Class.objects.get(name=clas)
+				allstudent = Student.objects.filter(clas = clas)
+				form = Report_contentForm()
+				studentrc={}# will be dictionary of stduent and their report_content form 
+				for i in range(len(allstudent)):
+					studentrc[allstudent[i]] = form
+				print allstudent
+			return render_to_response('reportcard/arw.html',dict(studentrc=studentrc,stage = stage ,allstudent=allstudent,form=form,status=status ,user = request.user))
+	else: return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion To Start The Report Wizzard")
 	
 
-
+#objects not found
 def error404(request):
 	return render_to_response('error/error404.html', dict(message="Object Not Found"))
-
+#more than nine(9)
 def mt9(request):
 	return render_to_response('error/error404.html', dict(message="Student Cannot Have More Than Nine Report Objects", status="mt9",user=request.user))
 

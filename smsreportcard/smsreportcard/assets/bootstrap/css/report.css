@@ -29,11 +29,16 @@ height:20px;
 .intform{
 width:70px;
 height:200px;
-background-color:none;
+}
+.intform:focus{
+background-color: rgba(0,0,0,0) !important;
 }
 .grade{
 width:70px;
 height:20px;
+}
+.grade:focus{
+background-color: rgba(0,0,0,0) !important;
 }
 #id_form{
 width:1.8cm;

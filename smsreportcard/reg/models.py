@@ -32,7 +32,7 @@ def logout_user(sender, request , user , **kwargs):
 	try:
 		u = LoggedUser.objects.get(pk = user.username)
 		u.delete()
-	except LoggedUser.DoesNotExist:
+	except LoggedUser.DoesNotExist or Error:
 		pass
 	
 user_logged_in.connect(login_user)

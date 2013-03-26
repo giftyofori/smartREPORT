@@ -1,6 +1,7 @@
 {% extends 'home/main.html'%}
 
 {% block title%}<title>ARW</title>{% endblock %}
+
 {% block mainblock %}
 <div class="span9">
     <div class="hero-unit">
@@ -12,7 +13,7 @@
                 <br />
                 <br />
             {%ifequal  status "No" %}
-            <div class="row-fluid">
+             <div class="row-fluid">
                 <div class="span1">
                 </div>
                 <div class="span3"><!--begin add report blk -->
@@ -31,24 +32,119 @@
             {%endifequal %}
             {%ifequal  status "stage1" %}
             <div class="row-fluid">
-                <div class="span3">
-                    <br>
+                <div class="span3" style="margin-top:4px">
+                   
                     <b>Please Select Your Class</b>
                 </div>
-                <div class="span5">
-                    {{classform.as_p}}
+                <form method='get' action="/report/arw/stage2/">
+                <div class="span2">
+                    
+                    {{form.classes}}
                 </div>
                 <div class="span2">
                     <script type="text/javascript">
-                        function getnext(){
-                            document.write('<a herf="">next </a>');
-                            
-                        }
                     </script>
                 </div>
+                <div class="span2" style="margin-top:none" >
+                    <strong id="nextlink" style="color: rgba(0,0,255,0.1)">next</strong>
+                    <!--<input type=submit value="next" />-->
+                </div>
+                </form>
+                
             </div><!--end rwo-fluid-->
-        {%endifequal %}
+        {%endifequal%}
+
         
+        {% ifequal status "stage2"%}
+        <div class="row-fluid">
+                <div class="span3" style="margin-top:4px">
+                    
+                    <b>Please Select Subject</b>
+                </div>
+                <form method='get' action="/report/arw/stage3/">
+                <div class="span2">
+                    {{form.clas}}
+                    
+                    {{form.subjects}}
+                </div>
+                <div class="span2">
+                    <script type="text/javascript">
+                    </script>
+                </div>
+                <div class="span2" style="margin-top:none" >
+                    <strong id="nextlink" style="color: rgba(0,0,255,0.1)">next</strong>
+                    <!--<input type=submit value="next" />-->
+                </div>
+                </form>
+                
+            </div><!--end rwo-fluid-->
+            {%endifequal%}
+            {% ifequal status "stage3"%}
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class=row-fluid">
+                            <div class="span2">
+                                <h6>ID</h6>
+                            </div>
+                            <div class="span6">
+                                <h6>Student Name</h6>
+                          
+                            </div>
+                                    
+                        </div>
+                      
+                    </div>
+                    <div id="id" class="span8">
+                        <div class="row-fluid">
+                            <div class="span3">
+                               <h6>Examination Score</h6>
+                            </div>
+                            <div class="span3">
+                                <h6>Class Test Score</h6>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>            
+                <hr>
+                <form action="" method="post" >
+                    {% for student , form in studentrc.items %}
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <div class=row-fluid">
+                                    <div class="span2">
+                                       {{student.id_number}} 
+                                    </div>
+                                    <div class="span3">
+                                        {{student.first_name}}
+                                    </div>
+                                    <div class="span2"">
+                                        {{student.last_name}}
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                            <div id="id" class="span8">
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        {{form.exam_mark}}
+                                    </div>
+                                    <div class="span3">
+                                        {{form.test_mark}}
+                                    </div>
+                                </div>
+                     
+                            </div>
+                        </div>
+                
+                    {%endfor%}
+                    
+            </form>
+        
+            {%endifequal%}
+        
+     
             <br />
             <br />
             <hr>

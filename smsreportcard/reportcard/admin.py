@@ -23,10 +23,14 @@ class CourseAdmin(admin.ModelAdmin):
 	list_display = ['course_name' , 'number_student']
 	order = 1
 class StudentAdmin(admin.ModelAdmin):
-	list_display = ['id_number','first_name','middle_name','last_name','course','form','phone_number']
-	list_filter = ['course','form']
-	search_fields = ('first_name','middle_name','last_name','course','id_number','city','country','form','phone_number')
+	list_display = ['id_number','first_name','middle_name','last_name','course','form','phone_number','clas']
+	list_filter = ['course','form','clas']
+	search_fields = ('first_name','middle_name','last_name','course','id_number','city','country','form','phone_number','clas')
 	
+class ClassADmin(admin.ModelAdmin):
+	list_display = ['name','classcode','course']
+	#code
+
 #admin.site.register(Student)
 #admin.site.register(Student_Info)
 admin.site.register(Teacher)
@@ -38,4 +42,5 @@ admin.site.register(Core_subjects)
 admin.site.register(Course , CourseAdmin)
 admin.site.register(Subject)
 admin.site.register(Index)
+admin.site.register(Class,ClassADmin)
 basic_admin.site.register(Student,StudentAdmin)

@@ -13,6 +13,7 @@
 
     <!--styles -->
     <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+      <link href="/static/css/smartrepo.css" rel="stylesheet">
     
     {% block extrahead %}
     
@@ -35,9 +36,10 @@
 
  <!-- fav -->
   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  {% block extrascript %}{% endblock %}
   </head>
 
-  <body>
+  <body onload="">
      <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
 
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -150,8 +152,9 @@
 <!-- End of Side content -->
 {% endblock %}
       <hr>
-      <footer>
-        <p>&copy;Smart Report 2013</p>
+      
+      <footer class="foota">
+        <h6>&copy;Smart Report 2013</h6>
       </footer>
 
     </div><!--/.fluid-container-->
@@ -159,7 +162,7 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-  
+     <script src="/static/js/smartrepo.js"></script>
     <script src="/static/bootstrap/js/jquery-1.9.1.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
     <script src="/static/bootstrap/js/bootstrap-alert.js"></script>

@@ -15,10 +15,27 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('reportcard', ['Index'])
 
+        # Adding model 'Course'
+        db.create_table('course', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('course_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('number_student', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
+        ))
+        db.send_create_signal('reportcard', ['Course'])
+
+        # Adding model 'Class'
+        db.create_table('reportcard_class', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=20)),
+            ('classcode', self.gf('django.db.models.fields.IntegerField')(max_length=5)),
+            ('course', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reportcard.Course'])),
+        ))
+        db.send_create_signal('reportcard', ['Class'])
+
         # Adding model 'Student'
         db.create_table('students', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('id_number', self.gf('django.db.models.fields.PositiveIntegerField')(default=100, max_length=6)),
+            ('id_number', self.gf('django.db.models.fields.PositiveIntegerField')(default=100, unique=True, max_length=6)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('middle_name', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -28,6 +45,7 @@ class Migration(SchemaMigration):
             ('phone_number', self.gf('phonenumber_field.modelfields.PhoneNumberField')(max_length=13)),
             ('city', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('country', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('clas', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reportcard.Class'], null=True, blank=True)),
         ))
         db.send_create_signal('reportcard', ['Student'])
 
@@ -73,14 +91,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('reportcard', ['Core_subjects'])
 
-        # Adding model 'Course'
-        db.create_table('course', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('course_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('number_student', self.gf('django.db.models.fields.IntegerField')(max_length=4)),
-        ))
-        db.send_create_signal('reportcard', ['Course'])
-
         # Adding model 'Elective_subjects'
         db.create_table('elective subjects', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -100,7 +110,7 @@ class Migration(SchemaMigration):
             ('teacher', self.gf('django.db.models.fields.CharField')(default='logged in user', max_length=50)),
             ('term', self.gf('django.db.models.fields.CharField')(default='First', max_length=10)),
             ('remark', self.gf('django.db.models.fields.TextField')(max_length=300)),
-            ('student', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reportcard.Student'])),
+            ('student', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['reportcard.Student'], null=True, blank=True)),
         ))
         db.send_create_signal('reportcard', ['Report'])
 
@@ -121,6 +131,12 @@ class Migration(SchemaMigration):
         # Deleting model 'Index'
         db.delete_table('index')
 
+        # Deleting model 'Course'
+        db.delete_table('course')
+
+        # Deleting model 'Class'
+        db.delete_table('reportcard_class')
+
         # Deleting model 'Student'
         db.delete_table('students')
 
@@ -139,9 +155,6 @@ class Migration(SchemaMigration):
         # Deleting model 'Core_subjects'
         db.delete_table('core subjects')
 
-        # Deleting model 'Course'
-        db.delete_table('course')
-
         # Deleting model 'Elective_subjects'
         db.delete_table('elective subjects')
 
@@ -153,6 +166,13 @@ class Migration(SchemaMigration):
 
 
     models = {
+        'reportcard.class': {
+            'Meta': {'object_name': 'Class'},
+            'classcode': ('django.db.models.fields.IntegerField', [], {'max_length': '5'}),
+            'course': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Course']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '20'})
+        },
         'reportcard.core_subjects': {
             'Meta': {'object_name': 'Core_subjects', 'db_table': "'core subjects'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -183,7 +203,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'id_number_student': ('django.db.models.fields.IntegerField', [], {'max_length': '10000'}),
             'remark': ('django.db.models.fields.TextField', [], {'max_length': '300'}),
-            'student': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Student']"}),
+            'student': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Student']", 'null': 'True', 'blank': 'True'}),
             'student_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'teacher': ('django.db.models.fields.CharField', [], {'default': "'logged in user'", 'max_length': '50'}),
             'term': ('django.db.models.fields.CharField', [], {'default': "'First'", 'max_length': '10'})
@@ -202,12 +222,13 @@ class Migration(SchemaMigration):
             'Email': ('django.db.models.fields.EmailField', [], {'max_length': '50', 'blank': 'True'}),
             'Meta': {'object_name': 'Student', 'db_table': "'students'"},
             'city': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'clas': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['reportcard.Class']", 'null': 'True', 'blank': 'True'}),
             'country': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'course': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'form': ('django.db.models.fields.IntegerField', [], {'max_length': '1'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'id_number': ('django.db.models.fields.PositiveIntegerField', [], {'default': '100', 'max_length': '6'}),
+            'id_number': ('django.db.models.fields.PositiveIntegerField', [], {'default': '100', 'unique': 'True', 'max_length': '6'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'middle_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'phone_number': ('phonenumber_field.modelfields.PhoneNumberField', [], {'max_length': '13'})
