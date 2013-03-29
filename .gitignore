@@ -50,7 +50,7 @@ nosetests.xml
 
 
 #the local sqlite database
-*.db
+
 *.sqlite
 
 #for dir
