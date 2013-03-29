@@ -5,9 +5,9 @@ import reportcard
 import msgs
 
 from django.contrib import admin
-import basic_admin
+
 admin.autodiscover()
-basic_admin.autodiscover()
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -26,7 +26,6 @@ urlpatterns = patterns('',
 	url(r'^accounts/profile/' , 'reg.views.main'),
 	url(r'^home/' , 'reg.views.main'),
 	url(r'^kab234/' , 'reportcard.views.main'),
-        url(r'^basicadmin/', include(basic_admin.site.urls)),
         url(r'^msgs/',include('msgs.urls')),
 	
 )
