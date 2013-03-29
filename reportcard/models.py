@@ -124,7 +124,7 @@ class Teacher(models.Model):
 	def __unicode__(self):
 		return self.name
 	class Meta:
-		tb_table = "teacher"
+		db_table = "teacher"
 
 
 class Student_Info(models.Model):
