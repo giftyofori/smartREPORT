@@ -141,10 +141,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
-    #'reportcard',
+    'reportcard',
     
-    #'msgs',
-    #'dj_simple_sms',
+    'msgs',
+    'dj_simple_sms',
     'grappelli',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -156,11 +156,11 @@ INSTALLED_APPS = (
     
     'django.contrib.admin',
     'south',
-	#'registration', 
-	#'reg',
-	#'simple_report',
-	#'dj_simple_sms',
-	#'msgs',
+	'registration', 
+	'reg',
+	'simple_report',
+	'dj_simple_sms',
+	'msgs',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
