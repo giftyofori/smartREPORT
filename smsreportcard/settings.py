@@ -1,5 +1,5 @@
 # Django settings for SmartReport project.
-import south
+#import south
 import os
 import dj_database_url
 
