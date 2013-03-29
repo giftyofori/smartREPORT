@@ -67,7 +67,7 @@ class Class(models.Model):
 	def __unicode__(self):
 		return self.name
 	class Meta:
-		tb_table = "class"
+		db_table = "class"
 	
 
 	
