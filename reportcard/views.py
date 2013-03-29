@@ -8,7 +8,6 @@ from django.template import Context, loader
 from forms import *
 from models import *
 import datetime
-import basic_admin
 from srHttp.HttpRequestPermissionDenied import *
 
 
