@@ -2,7 +2,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from models import *
 import bform
-from form import ReportForm
+
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from dj_simple_sms.models import SMS
