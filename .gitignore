@@ -56,10 +56,6 @@ nosetests.xml
 #for dir
 
 django/
-SMS Project in Python/
 project_files/
-phonenumber_field/
 SMS-sdk/
 basic_admin/
-
-smsreportcard/smsreportcard/

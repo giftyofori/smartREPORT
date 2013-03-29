@@ -17,12 +17,13 @@ GEOS_LIBRARY_PATH = ''
 CSRF_COOKIE_DOMAIN =''
 
 MANAGERS = ADMINS
-
+"""
 DATABASES = {
     'default': 
         dj_database_url.config(default="sqlite:/smartreport.db")
         
 }
+"""
 
 
 # Email Settings
@@ -201,3 +202,11 @@ LOGGING = {
 }
 GRAPPELLI_ADMIN_TITLE ="Smart Report v01"
 LOGIN_URL = '/accounts/login/?next=/kab234/'
+
+
+# Parse database configuration from $DATABASE_URL
+#import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
