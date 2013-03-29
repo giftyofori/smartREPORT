@@ -1,0 +1,92 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{% load adminmedia %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/login.css" />
+
+{% endblock %}
+{% block extrahead %}
+   <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+		<link rel="stylesheet" href="/static/bootstrap/css/loginform.css" type="text/css" media="screen" charset="utf-8"/>
+{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if error_message %}
+<p class="errornote">{{ error_message }}</p>
+{% endif %}
+{% comment %}
+<div class="container">
+	<form class="form-signin" action="{{ app_path }}" method="post" id="login-form">{%csrf_token %}
+		<h2 class="form-signin-heading">Please sign in</h2>
+		<input class="input-block-level" placeholder="Username" type="text" name="username" id="id_username" />
+		<input type="password" name="this_is_the_login_form" value="1"   class="input-block-level" placeholder="Password" />
+		<!--<input type="submit" value="{% trans 'Log in' %}" /> -->
+		<button class="btn btn-large btn-primary" type="submit">Sign in</button>
+	</form>
+</div>
+
+<!-- old login form -->
+
+{% endcomment %}
+<div id="content-main" >
+    <form class ="form-signin" action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+	<h2 class="form-signin-heading">Please Login in</h2>
+  <div class="form-row">
+    <label for="id_username">{% trans ' ' %}</label> <input class="input-block-level" type="text" name="username" id="id_username" placeholder="Username"/>
+  </div>
+  <div class="form-row">
+    <label for="id_password">{% trans ' ' %}</label> <input class="input-block-level" type="password" name="password" id="id_password" placeholder="Password"/>
+    <input type="hidden" name="this_is_the_login_form" value="1" />
+  </div>
+  <div class="submit-row">
+    <!--<label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" /> -->
+	<button class="btn btn-primary" type="submit">Login in</button>
+  </div>
+</form>
+
+
+
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+</div>
+
+<!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/bootstrap/js/jquery.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-button.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+
+
+
+{% endblock %}

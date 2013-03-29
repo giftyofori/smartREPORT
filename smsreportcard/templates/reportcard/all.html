@@ -1,0 +1,59 @@
+{% extends 'home/main.html'%}
+
+{%block mainblock%}
+<div class="span9">
+<div class="hero-unit3">
+    {% if allreports %}
+        
+    <div class="row-fluid">
+        <div class = span7>
+            <h3>Name </h3>
+        </div><!-- end span -->
+        
+        <div class = "span2">
+            <h3>Term</h3>
+        </div><!-- end span -->
+        <div class="span3">
+            <h3>Course</h3>
+        </div><!-- end span -->
+        
+        
+        
+    </div><!-- end row-fluid -->
+    <hr>
+
+    <div class = "row-fluid">
+        <div class = "span7">
+        {%for report in allreports %}
+            <a href="/report/detail/{{report.id}}/">
+            <p> <span>{{report.student_name}}</p>
+          
+            </a>
+        {% endfor %}
+        </div>
+        
+    <div class="span2">
+        {% for report in allreports %}
+            <p>{{report.term}} </p>            
+            {% endfor %}
+        
+        </div>
+    <div class="span3">
+        {% for report in allreports %}
+            <p>{{report.course}} </p>
+            {% endfor %}
+        </div>
+    </div >
+    <hr>
+    <div class="row-fluid">
+        <h6><a href="/report/allstudent/">Add New<h6>
+    </div>
+    {% else %}
+        <div class="row-fluid">
+            <h6>No Report In DataBase <a href="/report/allstudent/">Add New<h6>
+        </div>
+    {% endif %}
+</div>
+</div>
+
+{% endblock %}

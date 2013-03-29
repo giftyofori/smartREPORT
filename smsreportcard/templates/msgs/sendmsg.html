@@ -1,0 +1,69 @@
+{% extends 'home/main.html'%}
+
+{% block mainblock %}
+<div class="span9">
+    <div class="hero-unit">
+        <!-- Email Section -->
+        {% ifequal action "email" %}
+        <form action ="/msgs/email/{{student.id}}/" method ="post">
+        <hr>
+            {% if student.Email %}
+        <div class="row-fluid">
+            <p> This Email Will Be sent to The Parent/Gardian of <span>{{student.first_name}}</span><span>{{student.last_name}}</span>
+            <p>Email Address {{student.Email}}</p>
+        </div>
+        <hr>
+        <div class="row-fluid">
+            <h6 style="color:pink"> {{emailform.subject.errors}}</h6>
+            {{emailform.subject}}
+        </div>
+        <hr>
+        <div class="row-fluid">
+           <h6 style="color:pink"> {{emailform.body.errors}}</h6>
+            {{emailform.body}}
+        </div>
+
+           
+        <hr>
+        <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 10.5cm">send message</button>
+    </form>
+        {% else %}
+            <p><a href=/report/student/{{student.id}}/>{{student.first_name}}<span>{{student.last_name}}</span></a> Has  no Email Email Address <h6><a href="msgs/sms/{{student.id}}/">send SMS</a></h6></p>
+         {%endif%}
+        </hr>
+    {% endifequal %}
+    <!-- end email section -->
+    
+    
+    <!-- SMS section -->
+    {% ifequal action "sms" %}
+        <form action ="/msgs/sms/{{student.id}}/" method ="post">
+        <hr>
+            {% if student.phone_number %}
+        <div class="row-fluid">
+            <p> This SMS Will Be sent to The Parent/Gardian of <span>{{student.first_name}}</span><span>{{student.last_name}}</span>
+            <p>Phone Number {{student.phone_number}}</p>
+        </div>
+
+        <hr>
+        <div class="row-fluid">
+           <h6 style="color:pink"> {{smsform.body.errors}}</h6>
+            {{smsform.body}}
+        </div>
+
+           
+        <hr>
+        <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 10.5cm">send message</button>
+    </form>
+        {% else %}
+            <p><a href=/report/student/{{student.id}}/>{{student.first_name}}<span>{{student.last_name}}</span></a> Has  no Phone Number!!! in posible contact admin <h6><a href="msgs/email/{{student.id}}/">send Email</a></h6></p>
+         {%endif%}
+        </hr>
+    {% endifequal %}
+    <!-- end sms action -->
+    
+    
+    </div>
+</div>
+
+{% endblock %}

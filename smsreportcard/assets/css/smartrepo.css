@@ -1,0 +1,23 @@
+.homeimg{
+    background: url(/static/img/home.jpg) no-repeat ;
+    margin:5px auto;
+}
+
+.arwnext{
+    border:none;
+    font-size:none;
+    font-family:inherit;
+    border-radius:2px;
+    height: 28px;
+    width: 35px;
+}
+.arwnext:hover{
+    height: 30px;
+    color:#C2E0FF;
+}
+.foota{
+    position: fixed;
+    bottom:0px;
+    left: 15px;
+    
+}
