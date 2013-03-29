@@ -1,0 +1,84 @@
+{% extends "home/main.html"%}
+{%block title %} <title> SR | add report to  {{student.first_name}} {{student.last_name}} </title> {% endblock%}
+
+{% block extrahead%}
+<link rel="stylesheet" href="/static/bootstrap/css/report.css" type="text/css" media="screen" charset="utf-8"/>
+
+
+{% endblock %}
+
+
+{% block mainblock %}
+<div class="span9">
+<div class="hero-unit">
+<label style="margin-left:18cm">{{time}} </label>
+<form action="." method= post>
+
+<hr>
+
+<table>
+<tr>{{rform.id_number_student.errors}}
+	<td> ID Number</td>
+	<td>{{rform.id_number_student}}</td>
+</tr>
+<tr>{{rform.id_number.errors}}
+	<td>  {{rform.id_number.label_tag }} </td>
+	<td>{{rform.id_number}}</td>
+</tr>
+<tr>
+	<td>  {{rform.student_name.errors}} </td>
+	<td>{{rform.student_name}}</td>
+</tr>
+<tr>
+	<td >{{rform.form.label_tag}} </td>
+ 	<td>{{rform.form}} </td>
+</tr>
+<tr>
+	<td class="padding">{{rform.course.label_tag}} </td>
+ 	<td>{{rform.course}} </td>
+</tr>
+<tr>
+	<td>  {{rform.term.label_tag }} </td>
+	<td>{{rform.term}}</td>
+</tr>
+<tr>
+	<td class="padding">{{rform.teacher.label_tag}}</td> 
+	<td>{{rform.teacher}} </td><a onclick=>
+</tr>
+</table>
+<hr>
+ 
+
+
+{% for i in rcform %}
+
+{{form.subject.errors}}{{form.exam_mark.errors}}{{form.test_mark.errors}}{{form.percentage.errors}}{{form.grade.errors}}
+{{i.subject}}{{i.exam_mark}}{{i.test_mark}}{{i.percentage}}{{i.grade}}
+<br>
+{%endfor%}
+<hr>
+	
+	{{rform.remark.errors}}
+<p> {{rform.remark.label_tag}} <span> {{rform.remark}}
+
+<div>
+<p>{{remark.remark.label_tag}}<span>{{remark.remark}}</span></p>
+</div>
+<hr>
+	
+
+
+
+<!--<input type = "submit" name = "add"  value = "add report"> -->
+	<button class="btn btn-primary" type="submit" style="margin-left: 430px">ADD REPORT</button>
+
+</form>
+<!-- end of form -->
+
+</div>
+<!-- end of hero-unit -->
+</div>
+
+<!-- end of span9 -->	
+
+{% endblock %}

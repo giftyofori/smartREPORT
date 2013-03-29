@@ -1,0 +1,144 @@
+{% extends 'home/main.html'%}
+{% block extrahead%}
+<link rel="stylesheet" href="/static/bootstrap/css/report.css" type="text/css" media="screen" charset="utf-8"/>
+                <script>
+                <!--
+                    function idnum(){
+                        var idnum = {{idnum}};
+                        return 'DO NOT EDIT! \n If ID Number Has changed please Enter ' + idnum;
+                    }
+                    
+                    function helpemail(){
+                        return document.getElementById("emailhelp").innerHTML="<h6 style='color:#99CCFF'>example@gmail.com <strong style='color:red'>*</strong></h6>";
+                        
+                    }
+                    
+                    function helpphone(){
+                       return  document.getElementById("phonehelp").innerHTML="<h6 style='color:#99CCFF'>eg. +233241111113 <strong style='color:red'>*</strong></h6>";
+                    }
+                -->   
+                </script>
+
+
+{% endblock %}
+
+{%block mainblock%}
+<div class="span9">
+<div class="hero-unit">
+
+
+<form action="/report/addstudent/" method ="post">
+</table><h3>Add Student</h3>
+        <hr>
+        <div class= "row-fluid">
+        <tr>
+            <label><h6> Student Identity Number </h6></label>
+            <div class="span1">
+
+            <td>{{studentform.id_number}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class= "row-fluid">        
+        <tr>
+            <label><h6> Student Name </h6></label>
+            <div class="span3">
+            <h6 style="color:pink">{{studentform.first_name.errors}}</h6>
+            <td >{{studentform.first_name}} </td>
+            </div>
+            <div class="span3"
+            <h6 style="color:pink">{{studentform.middle_name.errors}}</h6>
+
+            <td><input {%if not studentform.first_name.errors or not studentform.last_name.errors %}id="id_middle_name"{%else%}id="id_middle_name_error"{%endif%} type="text" placeholder="Other Name" name="middle_name" maxlength="50" />  </td>
+            </div>
+            <div class="span3">
+             <h6 style="color:pink">{{studentform.last_name.errors}}</h6>
+            <td>{{studentform.last_name}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class="row-fluid">
+            
+        <tr>
+            
+            <label><h6>Course </h6></label>
+            <div class="span4">
+            <h6 style="color:pink">{{studentform.course.errors}}</h6>
+            <td>{{studentform.course}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class="row-fluid">
+        <tr>
+            <label><h6> SHS Level </h6></label>
+            <div class="span5">
+            <h6 style="color:pink">{{studentform.form.errors}}</h6>
+            <td>{{studentform.form}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+       <div class="row-fluid">
+        <tr>
+        <label><h6>Parent Contact</h6></label>
+        <div class="span5">
+            <h6 style="color:pink">{{studentform.Email.errors}}</h6>
+            <p id="emailhelp"></p>
+            <td>{{studentform.Email}} </td>
+          
+        </tr>
+        <br>
+        <tr>
+            <h6 style="color:pink">{{studentform.phone_number.errors}}</h6>
+            <p id="phonehelp"></p>
+            <td>{{studentform.phone_number}} </td>
+            
+        </div>
+        </tr>
+        
+        </div>
+        <hr>
+        <div class ="row-fluid">
+        <tr>
+            <label><h6>Student Infomation </h6></label>
+           <div class="span5"> 
+            <td>{{studentform.city}} </td>
+        </tr>
+        <br>
+        <tr>
+            <td>{{studentform.country}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+        <div class ="row-fluid">
+        <tr>
+            <label><h6>Class </h6></label>
+           <div class="span5"> 
+            
+        </tr>
+
+        <tr>
+            <td>{{studentform.clas}} </td>
+            </div>
+        </tr>
+        </div>
+        <hr>
+            
+    </table>
+        
+    
+
+
+    
+    <!--<input type = "submit" name = "add"  value = "add student"> -->
+    <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 580px">add student</button>
+</form>
+
+</div>
+</div>
+{{idnum}}
+{%endblock%}
