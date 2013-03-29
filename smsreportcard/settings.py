@@ -20,7 +20,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': 
-        dj_database_url.config(default="sqlite:/smartreport_test.db")
+        dj_database_url.config(default="sqlite:/smartreport.db")
         
 }
 
