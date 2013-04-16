@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from phonenumber_field.modelfields import PhoneNumberField
-
+from spreadsheet.views import create_spreadsheet
  
 #from _reportcard.views import index_number
 class Index(models.Model):
@@ -66,6 +66,13 @@ class Class(models.Model):
 	
 	def __unicode__(self):
 		return self.name
+	
+	def save(self,*args, **kwargs):
+		super(Class,self).save(*args, **kwargs)
+		clas_id = self.id 
+		create_spreadsheet(self.name,clas_id)
+	
+	
 	class Meta:
 		db_table = "class"
 	
@@ -92,7 +99,7 @@ class Student(models.Model):
 	#created_on = models.DateTimeField(auto_now = True)
 	
 	def __unicode__(self):
-		return str(self.id_number)
+		return u'%s %s' %(str(self.id_number),self.first_name)
 	
 	def get_absolute_url(self):
 		return '/report/student/%s/' % self.id
@@ -238,7 +245,7 @@ class Report_content(models.Model):
 	exam_mark = models.IntegerField("Examination Mark", max_length = 3)
 	test_mark = models.IntegerField("Class Test Mark" , max_length = 3)
 	percentage = models.IntegerField(max_length = 3)
-	grade = models.CharField(max_length = 1, choices = GRADE)
+	grade = models.CharField(max_length = 2, choices = GRADE)
 
 	def __unicode__(self):
 		return self.subject
@@ -246,5 +253,8 @@ class Report_content(models.Model):
 	class Meta:
 		db_table = "report content"
 		verbose_name = "Report Content"
+
+	
+
 		
 		

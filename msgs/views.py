@@ -12,7 +12,7 @@ from django.core.mail import EmailMessage , send_mail, BadHeaderError ,send_mass
 from smsreportcard.settings import EMAIL_SUBJECT_PREFIX as subprfx
 from django.contrib.auth.decorators import login_required
 from srHttp.HttpRequestPermissionDenied import *
-
+from sptime import getyear as currentTerm
 
 
 ###system email
@@ -95,8 +95,67 @@ def _sendsms(request , pk):
         return render_to_response("reportcard/report_detail.html",dict(reports = reports , subjects = reportcontent,user=request.user,status=status))
 
 
+#name: sendallreports v0.1
+def sarts(request):
+    if request.method =="GET":
+        currentReports = Report.objects.filter(term = currentTerm)
+        #student = Student.objects.get(id_number = report.id_number_student)
+        reportsdict = {}
+        for report in currentReports:
+            reportsdict[report] = Report_content.objects.filter(report = report)
+        for report ,reportcontent in reportsdict.items():
+            student_number = report.student.phone_number
+            student_name = report.student_name
+            student_course = report.course
+            student_details = 'Name %s\nCourse %s\n' %(student_name,student_course[:3])
+            report_details = ''
+            for item in reportcontent:
+                report_details = report_details + "%s %s\n" %(item.subject,item.grade)
+            message = SMS(to_number = student_number,from_number = "SmartReport" ,body = student_details+report_details)
+            message.send()
+                
+
+            
+            
+        
+        
+        return HttpResponse("Sending reports")
+
+def sendcurrenetreports(request):
+    term = currentTerm
+    reports = Report.objects.filter(term = term)
+    return render_to_response('msgs/sendcurrenetreports.html',dict(reports=reports,term=term,user=request.user))
+
+
+
 def sndmsg(request):
     return render_to_response('msgs/create_msg.html',dict(user=request.user))
+
+
+def sendbulksms(request , to):
+    if request.method == "GET":
+        if to == "getform":
+            return render_to_response('msgs/sendbulksms.html',dict(smsform = SMSform()))
+        if to =="all":
+            smsform = SMSform(request.GET)
+            return render_to_response('msgs/sendbulksms.html',dict())
+        
+    pass
+
+
+@csrf_exempt
+def sendsmstoallstudent(request):
+    if request.method == "GET":
+        smsform = SMSform()
+    if request.method =="POST":
+        smsmessage = request.POST.get("body","No such Meassage")
+        students = Student.objects.all()
+        for student in students:
+            message = SMS(to_number = student.phone_number , from_number = "SHS" , body = smsmessage)
+            message.send()
+        return HttpResponse('Sent Messages <a href="/kab234/">GO HOME</a>')
+    return render_to_response('msgs/sendsmstoallstudent.html',dict(smsform = smsform))
+
 
 """
 @csrf_exempt

@@ -1,0 +1,45 @@
+{% extends 'home/main.html'%}
+{% block mainblock%}
+    <div class="span9">
+        <div class="hero-unit">
+            <div class="row-fluid">
+                <div class="span7">
+                   <h3> All The {{term}} Term Reports of Students Below Will be Sent To Their Respective Parents</h3>
+                </div>
+                <div class="span2">
+                    
+                </div>
+            </div>
+            <hr>
+            <div class="row-fluid">
+                <div class="span3">
+                    <h6>Report Number</h6>
+                </div>
+                <div class="span4" style="margin-left: 34px;">
+                    <h6>Student</h6>
+                </div>
+                <div class="span1">
+                    <h6>Course</h6>
+                </div>
+            </div>
+            <hr>
+            <div class="row-fluid">
+            {%for report in reports %}
+                <div class="span3" style="margin-left: 10px">
+                    {{forloop.counter}}
+                </div>
+                <div class="span4">
+                    {{report.student_name}}
+                </div>
+                <div class="span3">
+                    {{report.course}}
+                </div>
+                   
+            {% endfor %}
+                
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock %}

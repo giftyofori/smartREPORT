@@ -422,6 +422,7 @@ a:hover {
   padding-right: 20px;
   padding-left: 20px;
   *zoom: 1;
+ 
 }
 
 .container-fluid:before,
@@ -2759,7 +2760,7 @@ button.close {
   background-image: linear-gradient(top, #0088cc, #0055cc);
   background-repeat: repeat-x;
   /* not part of original file can remove */
-  background: url(/static/img/grain3.jpg);
+  background: url("/static/img/smartreportmain.png") no-repeat;
   /* this */
   border-color: #0055cc #0055cc #003580;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
@@ -5175,6 +5176,11 @@ table td, table th
 }
 #id_middle_name_error{
   margin-top: 27px;
+}
+
+.msgcentermenu:hover{
+  background-color: rgba(176,176,176,1);
+  border-radius: 3px;
 }
 
 /*

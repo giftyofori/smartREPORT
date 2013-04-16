@@ -25,7 +25,7 @@ class CourseAdmin(admin.ModelAdmin):
 class StudentAdmin(admin.ModelAdmin):
 	list_display = ['id_number','first_name','middle_name','last_name','course','form','phone_number','clas']
 	list_filter = ['course','form','clas']
-	search_fields = ('first_name','middle_name','last_name','course','id_number','city','country','form','phone_number','clas')
+	search_fields = ['first_name','middle_name','last_name','course','id_number','city','country','form','phone_number']
 	
 class ClassADmin(admin.ModelAdmin):
 	list_display = ['name','classcode','course']

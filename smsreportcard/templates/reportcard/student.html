@@ -3,7 +3,7 @@
 {% block mainblock %}
     
 <div class="span9">
-    <div class= "hero-unitvas">
+    <div class= "hero-unitvas" style="background: url(/static/img/smartreportmain.png) repeat;">
         <h6>Student Details </h6>
         <hr>
         {%for attr in student %}
@@ -48,13 +48,16 @@
             </div>
             
             
-        {% endfor %}
+       
         <hr>
          {% if user.is_staff %}   
         <div class="row-fluid">
-            <h6><a href="#" style="text-decoration: none">Edit</a></h6>
+            <h6><a href="/report/changestudent/{{attr.id}}/{{attr.first_name}}/" style="text-decoration: none">Edit</a></h6>
         </div>
-        {% endif %}
+    {% endif %}
+   
+
+     {% endfor %}
             
         
     </div>

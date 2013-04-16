@@ -1,0 +1,14 @@
+{% extends 'home/main.html'%}
+{%block title%}<title>Send Messsage </title> {% endblock %}
+{% block mainblock %}
+<div class="span9">
+    <div class="hero-unit">
+        <form method="post" action="/msgs/sendsmstoallstudent/"> {% csrf_token %}
+            {{smsform.as_table}}
+            <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 10.5cm">send</button>
+        </form>
+    </div>
+    
+</div>
+
+{%endblock%}

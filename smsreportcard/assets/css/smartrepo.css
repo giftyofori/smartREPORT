@@ -21,3 +21,27 @@
     left: 15px;
     
 }
+.main-unit{
+    padding: 60px;
+    margin-bottom: 30px;
+    height: 80px;
+    padding: 50px 50px 50px 50px;
+    background-color: #eeeeee;
+    color: rgba(255,255,255,1);
+    background: url(/static/img/smartreportmain.png) repeat;
+    -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+            border-radius: 6px;
+}
+.main-unit p{
+    
+}
+.main-unit h1{
+    font-size: 70px;
+    margin: 30px auto auto 180px;
+    float: left;
+    font-weight: bolder;
+    font-variant: small-caps;
+    
+}
+

@@ -60,6 +60,24 @@ def add_student(request):
 			Index.objects.create(number = new_id_number)
 			return HttpResponseRedirect(student.get_absolute_url())
 	return render_to_response('reportcard/add_student.html' , dict(studentform = studentform , user = request.user ,idnum = new_id_number ))
+
+
+@login_required
+@csrf_exempt
+def edit_student(request,id,studentname):
+	user = request.user
+	if user.has_perm("reportcard.change_student"):
+		student = Student.objects.get(id = id)
+		if request.method == "POST":
+			studentform = StudentForm(request.POST,instance=student)
+			if studentform.is_valid():
+				studentform.save()
+				return HttpResponseRedirect(student.get_absolute_url())
+		else:
+			studentform = StudentForm(instance=student)
+	else :return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do Not Have Permisssion To Change Student")
+	return render_to_response('reportcard/edit_student.html',dict(studentform = studentform , user = request.user ,student=student ,idnum=student.id_number))
+
 	
 @login_required
 def get_student(request, pk):
