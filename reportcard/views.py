@@ -14,8 +14,9 @@ from sptime import getyear as currentTerm
 
 """
 DISPLAY THE MAIN PAGE
-
 """
+def search(request,area):
+	pass
 def path(path):
 	return path
 
@@ -45,7 +46,7 @@ def add_student(request):
 				last_student =list(Student.objects.all())[-1]
 				new_id_number = last_student.id_number + 1
 		except:
-			new_id_number = 100
+			new_id_number = 100000
 		
 
 		if request.method == 'GET':
@@ -53,10 +54,12 @@ def add_student(request):
 	
 	else: return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do Not Have Permisssion To Add Student")
 		
-	if request.method == "POST":
+	if request.method == "POST":                      
 		
 		studentform = StudentForm(request.POST)
+		print studentform
 		if studentform.is_valid():
+			print "valid"
 			student = studentform.save()
 			Index.objects.create(number = new_id_number)
 			return HttpResponseRedirect(student.get_absolute_url())

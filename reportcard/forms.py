@@ -30,7 +30,7 @@ def get_course():
 """
 
 class StudentForm(ModelForm):
-	id_number = forms.CharField(max_length = 10 ,widget=forms.TextInput(attrs={'disabled':'','onKeyPress':"alert(idnum());"}) )
+	id_number = forms.CharField(max_length = 10,widget=forms.TextInput(attrs={'onKeyPress':'alert(idnum());','id':'stuidnum'}) )
 	course = forms.ChoiceField( widget=Select, choices = get_course())
 	form = forms.ChoiceField(widget = Select ,choices = Report.FORMS)
 	class Meta:

@@ -24,12 +24,13 @@
 
 {%block mainblock%}
 <div class="span9" >
-<div class="hero-unit" style="background: url(/static/img/smartreportmain.png) repeat;">
+<div class="hero-unit" style="">
 
 
 <form action="/report/addstudent/" method ="post">
 </table><h3>Add Student</h3>
         <hr>
+        
         <div class= "row-fluid">
         <tr>
             <label><h6> Student Identity Number </h6></label>
@@ -135,7 +136,8 @@
 
     
     <!--<input type = "submit" name = "add"  value = "add student"> -->
-    <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 580px">add student</button>
+    </script>
+    <button onclick="rm()" class="btn btn-primary" type="submit" name = "add"  style="margin-left: 580px">add student</button>
 </form>
 
 </div>

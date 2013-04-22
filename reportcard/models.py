@@ -91,8 +91,8 @@ class Student(models.Model):
 	form = models.IntegerField(max_length = 1)
 	Email = models.EmailField(max_length = 50, blank = True , help_text = "optional" )
 	phone_number = PhoneNumberField("Phone Number" , max_length = 13)
-	city = models.CharField("City or Town" , max_length = 50)
-	country = models.CharField("Nationality" , max_length = 50)
+	city = models.CharField("City or Town" , max_length = 50,blank =True)
+	country = models.CharField("Nationality" , max_length = 50,blank = True)
 	clas = models.ForeignKey(Class,null = True, blank = True)
 	
 	

@@ -20,6 +20,7 @@ urlpatterns = patterns('reportcard.views',
         url(r'^vas/(\d+)/$' , 'vas'),
         url(r'^arw/((?P<stage>.*)/)?$', 'arw'),
         url(r'^changestudent/(?P<id>.*?)/(?P<studentname>.*?)/$','edit_student'),
+        url(r'^search/(?P<area>.*?)/','search')
         #url(r'^posts/(?P<id>\d+)/((?P<showComments>.*)/)?$', 'blog.views.post_detail'),
     
 
