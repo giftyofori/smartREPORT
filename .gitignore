@@ -35,7 +35,8 @@ nosetests.xml
 .pydevproject
 
 
-*.db*.pyc
+*.db
+*.pyc
 *.pyo
 *.html~
 *.css~

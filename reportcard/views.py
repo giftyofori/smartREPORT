@@ -89,8 +89,12 @@ def get_student(request, pk):
 	allstudent = Student.objects.all()
 	return render_to_response('reportcard/student.html' , dict(student = student , allstudent = allstudent, user = request.user))
 @login_required
-def all_student(request):
-	allstudent = Student.objects.all()
+def all_student(request,query):
+	print query
+	if not query:
+		allstudent = Student.objects.all()
+	if query:
+		allstudent = Student.objects.filter(form = query)
 	return render_to_response('reportcard/allstudent.html' , dict(students = allstudent , user = request.user))
 
 @login_required
