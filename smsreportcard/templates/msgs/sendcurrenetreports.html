@@ -1,7 +1,24 @@
 {% extends 'home/main.html'%}
+{% block extrahead%}
+    <style type="text/css">
+    .progress-info{
+        margin-left:290px;
+        margin-bottom: 2px;
+        width: 250px;
+        height: 24px;
+        background-color:inherit;
+        border-radius: 4px;
+        text-align: center;
+    }
+    </style>
+    
+{% endblock%}
 {% block mainblock%}
     <div class="span9">
         <div class="hero-unit">
+            <div class="row-fluid" id="sarts-row">
+                <div class="progress-info" id="progress-info-sarts"></div>
+            </div>
             <div class="row-fluid">
                 <div class="span7">
                    <h3> All The {{term}} Term Reports of Students Below Will be Sent To Their Respective Parents</h3>
@@ -37,6 +54,10 @@
                    
             {% endfor %}
                 
+            </div>
+            <hr>
+            <div class="row-fluid"  id="sarts-btn" >
+                <button class="btn-warning" id="sarts-btn"  onclick="start_sarts('http://localhost:8080/msgs/sendallreports');">proceed</button>
             </div>
             
         </div>

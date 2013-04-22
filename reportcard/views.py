@@ -9,6 +9,7 @@ from forms import *
 from models import *
 import datetime
 from srHttp.HttpRequestPermissionDenied import *
+from sptime import getyear as currentTerm
 
 
 """
@@ -101,8 +102,8 @@ def add_StudentReport(request , pk ):
 				return HttpResponseRedirect('/report/syserror__me_ot_mtn9/')
 			else:
 				course = Course.objects.get(course_name = student.course)
-				reportform = ReportForm(initial = {'id_number_student': student.id , 'student_name': student.last_name +' '+ student.middle_name +' '
-						   + student.first_name, 'course': student.course , 'teacher':request.user })
+				reportform = ReportForm(initial = {'id_number_student': student.id_number , 'student_name': student.last_name +' '+ student.middle_name +' '
+						   + student.first_name, 'course': student.course , 'teacher':request.user ,'term':currentTerm})
 		# get all the elective subjects based on the course of the student
 				elective_subjects = Elective_subjects.objects.filter(course = course.id)
 				core_subjects = ['Core Mathematics' ,'English','Intergrated Science','Social Studies']

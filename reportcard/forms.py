@@ -48,6 +48,8 @@ class ReportForm(ModelForm):
 	student_name = forms.CharField(max_length = 100,widget=forms.TextInput(attrs={'disabled':'','class':'inputstyle' , 'placeholder':'Enter Sudent Name '}))
 	form = forms.ChoiceField(widget=forms.Select, choices=FORMS ,initial = "")
 	remark = forms.CharField(max_length = 300, required = False,widget=forms.Textarea(attrs={"style":"width:530px ; height:100px"}) ,initial = "Good Work More Room for Improvement")
+	teacher = forms.CharField(widget=forms.TextInput(attrs={"disabled":""}))
+	course = forms.CharField(widget=forms.TextInput(attrs={"disabled":""}))
 	class Meta:
 		model = Report
 

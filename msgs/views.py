@@ -113,12 +113,6 @@ def sarts(request):
                 report_details = report_details + "%s %s\n" %(item.subject,item.grade)
             message = SMS(to_number = student_number,from_number = "SmartReport" ,body = student_details+report_details)
             message.send()
-                
-
-            
-            
-        
-        
         return HttpResponse("Sending reports")
 
 def sendcurrenetreports(request):
