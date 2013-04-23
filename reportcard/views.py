@@ -15,8 +15,6 @@ from sptime import getyear as currentTerm
 """
 DISPLAY THE MAIN PAGE
 """
-def search(request,area):
-	pass
 def path(path):
 	return path
 
@@ -108,6 +106,34 @@ def all_student(request,query=None,course=None,klass=None):
 			clas = Class.objects.get(name=klass) 
 			allstudent = Student.objects.filter(form=query).filter(clas=clas)
 	return render_to_response('reportcard/allstudent.html' , dict(students = allstudent , user = request.user,courses=courses ,classes=classes))
+
+def searchstudent(request):
+	courses = Course.objects.all()
+	classes = Class.objects.all()
+	allstudent = None
+	if request.GET:
+		allstudent =[]
+		query=request.GET.get("searchstudent","No Item searchstudent")
+		areastosearch = ["id_number","first_name","last_name","course","form"]
+		for i in areastosearch:
+			try:
+				student= Student.objects.get(first_name__icontains=i)
+				if student not in allstudent:
+					allstudent.append(student)
+				student= Student.objects.get(first_name__icontains=i)
+				if student not in allstudent:
+					allstudent.append(student)
+				student= Student.objects.get(first_name__icontains=i)
+				if student not in allstudent:
+					allstudent.append(student)
+				
+				
+			except :
+				pass
+		
+	return render_to_response('reportcard/allstudent.html' , dict(students = allstudent , user = request.user,courses=courses ,classes=classes))
+	
+	pass
 
 @login_required
 @csrf_exempt
