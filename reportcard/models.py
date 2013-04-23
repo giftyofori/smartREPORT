@@ -107,7 +107,7 @@ class Student(models.Model):
 	class Meta: 
 		db_table = 'students'
 		
-
+#not in use .... skip this model
 class Teaches(models.Model):
 	teacher_id = models.IntegerField(max_length= 8)
 	subject_name = models.CharField(max_length = 50)
@@ -122,7 +122,7 @@ class Teaches(models.Model):
 
 	class Meta:
 		db_table = 'teaches'
-
+#not in use ....skip this model
 class Teacher(models.Model):
 	#subject = models.ForeignKey(Subject)
 	id_number = models.IntegerField(max_length = 6)
@@ -257,4 +257,5 @@ class Report_content(models.Model):
 	
 
 		
+
 		

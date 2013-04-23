@@ -89,13 +89,25 @@ def get_student(request, pk):
 	allstudent = Student.objects.all()
 	return render_to_response('reportcard/student.html' , dict(student = student , allstudent = allstudent, user = request.user))
 @login_required
-def all_student(request,query):
-	print query
+def all_student(request,query=None,course=None,klass=None):
+	courses = Course.objects.all()
+	classes = Class.objects.all()
 	if not query:
+		print 1
 		allstudent = Student.objects.all()
-	if query:
+	elif query and course=="NoCourse":
+		print "2"
 		allstudent = Student.objects.filter(form = query)
-	return render_to_response('reportcard/allstudent.html' , dict(students = allstudent , user = request.user))
+	elif query and course or klass:
+		if course:
+			print "in course"
+			allstudent = Student.objects.filter(form = query).filter(course = course)
+		else :
+			print klass
+			print "here"
+			clas = Class.objects.get(name=klass) 
+			allstudent = Student.objects.filter(form=query).filter(clas=clas)
+	return render_to_response('reportcard/allstudent.html' , dict(students = allstudent , user = request.user,courses=courses ,classes=classes))
 
 @login_required
 @csrf_exempt
