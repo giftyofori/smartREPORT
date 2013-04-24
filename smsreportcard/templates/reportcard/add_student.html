@@ -18,6 +18,12 @@
                     }
                 -->   
                 </script>
+    <style type="text/css">
+    hr{
+        margin-bottom: -1px;
+        padding: 0;
+    }
+    </style>
 
 
 {% endblock %}
@@ -83,36 +89,35 @@
         </div>
         <hr>
        <div class="row-fluid">
+        <div class="span9">
         <tr>
         <label><h6>Parent Contact</h6></label>
-        <div class="span5">
+        <div class="span6">
             <h6 style="color:pink">{{studentform.Email.errors}}</h6>
             <p id="emailhelp"></p>
             <td>{{studentform.Email}} </td>
-          
-        </tr>
-        <br>
-        <tr>
+        </div>
+        <div class="span6">
             <h6 style="color:pink">{{studentform.phone_number.errors}}</h6>
             <p id="phonehelp"></p>
             <td>{{studentform.phone_number}} </td>
-            
         </div>
         </tr>
         
+        </div>
         </div>
         <hr>
         <div class ="row-fluid">
         <tr>
             <label><h6>Student Infomation </h6></label>
-           <div class="span5"> 
-            <td>{{studentform.city}} </td>
+           <div class="span8"> 
+            <td>{{studentform.city}} </td><td>{{studentform.country}} </td>
         </tr>
-        <br>
-        <tr>
-            <td>{{studentform.country}} </td>
+<!--        <h6 style="color:pink">{{studentform.phone_number.errors}}</h6>
+            <p id="phonehelp"></p>
+            <td>{{studentform.phone_number}} </td>-->
             </div>
-        </tr>
+        
         </div>
         <hr>
         <div class ="row-fluid">

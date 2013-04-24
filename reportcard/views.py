@@ -10,6 +10,7 @@ from models import *
 import datetime
 from srHttp.HttpRequestPermissionDenied import *
 from sptime import getyear as currentTerm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 """
@@ -114,22 +115,28 @@ def searchstudent(request):
 	if request.GET:
 		allstudent =[]
 		query=request.GET.get("searchstudent","No Item searchstudent")
-		areastosearch = ["id_number","first_name","last_name","course","form"]
+		areastosearch = query.split()
+		print areastosearch
 		for i in areastosearch:
 			try:
 				student= Student.objects.get(first_name__icontains=i)
 				if student not in allstudent:
 					allstudent.append(student)
-				student= Student.objects.get(first_name__icontains=i)
-				if student not in allstudent:
-					allstudent.append(student)
-				student= Student.objects.get(first_name__icontains=i)
-				if student not in allstudent:
-					allstudent.append(student)
-				
-				
-			except :
+			except ObjectDoesNotExist:
 				pass
+			try:
+				student = Student.objects.get(last_name__icontains=i)
+				if student not in allstudent:
+					allstudent.append(student)
+			except ObjectDoesNotExist:
+				pass
+			try:
+				student = Student.objects.get(middle_name__icontains=i)
+				if student not in allstudent:
+					allstudent.append(student)
+			except ObjectDoesNotExist:
+				pass
+				
 		
 	return render_to_response('reportcard/allstudent.html' , dict(students = allstudent , user = request.user,courses=courses ,classes=classes))
 	
