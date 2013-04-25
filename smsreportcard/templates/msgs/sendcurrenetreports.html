@@ -2,13 +2,26 @@
 {% block extrahead%}
     <style type="text/css">
     .progress-info{
-        margin-left:290px;
+        margin-left:200px;
         margin-bottom: 2px;
         width: 250px;
         height: 24px;
         background-color:inherit;
-        border-radius: 4px;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        -webkit-transition: all 0 linear 1s,opacity 1s;
+        padding 2px;
+        font-size: 11px;
+        /*opacity: 0;*/
+        visibility: hidden;
+        overflow: hidden;
         text-align: center;
+        background-color: #d6e9f8;
+        border-color: #4d90f0;
+        color: #333;
+        z-index: 1000;
+        
     }
     </style>
     
@@ -57,7 +70,7 @@
             </div>
             <hr>
             <div class="row-fluid"  id="sarts-btn" >
-                <button class="btn-warning" id="sarts-btn"  onclick="start_sarts('http://localhost:8080/msgs/sendallreports');">proceed</button>
+                <button class="btn-warning" id="sarts-btn"  onclick="start_sarts('http://localhost:8000/msgs/sendallreports');">proceed</button>
             </div>
             
         </div>

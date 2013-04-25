@@ -11,6 +11,7 @@ import datetime
 from srHttp.HttpRequestPermissionDenied import *
 from sptime import getyear as currentTerm
 from django.core.exceptions import ObjectDoesNotExist
+from spreadsheet.views import addStudentToWksheet
 
 
 """
@@ -56,9 +57,13 @@ def add_student(request):
 	if request.method == "POST":                      
 		
 		studentform = StudentForm(request.POST)
-		print studentform
+		postdata = request.POST
+		klass = postdata.get("clas",None)
+		StudentId = postdata.get("id_number",None)
+		StudentName = "%s %s %s" %(postdata.get("first_name",""),postdata.get("middle_name",""),postdata.get("last_name",""))
+		data = dict(studentid=StudentId,studentname=StudentName)#,ClassWrk1='',ClassWrk2='',ClassWrk3='',ClassWrk4='',ClassWrk5='',ClassWrk6='',ClassWrk7='',ClassWrk8='',ClassWrk9='',ClassWrk10='',Test1='',Test2='',ExaminationMarks='')
+		addStudentToWksheet(klass ,data)
 		if studentform.is_valid():
-			print "valid"
 			student = studentform.save()
 			Index.objects.create(number = new_id_number)
 			return HttpResponseRedirect(student.get_absolute_url())
@@ -177,7 +182,7 @@ def add_StudentReport(request , pk ):
 				
 		student = Student.objects.get(id = pk)
 	
-		if reportform.is_valid():
+		if p:
 			report = ReportForm(dict(student = student.id,id_number_student=student.id_number, student_name = student.last_name +' '+ student.middle_name +' ' +
 					    student.first_name , course = student.course , form = p['form'] , term = p['term'],teacher = request.user , remark= p['remark']))
 			report = report.save()
