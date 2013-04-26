@@ -1,0 +1,32 @@
+{%extends "charts/base.html"%}
+{% block title %} hjhjhh{% endblock %}
+{% block extrahead %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses','Good Will'],
+          ['2004',  1000,      400, 300],
+          ['2005',  1170,      460,  400],
+          ['2006',  660,       1120, 1200],
+          ['2007',  1030,      540, 20]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
+          width:700,height:350,
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  {% endblock %}
+{% block charts %}
+<div id="chart_div" class="chart_div" style="width:900; height:600"></div>
+
+{% endblock %}

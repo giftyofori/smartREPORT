@@ -3,6 +3,7 @@ from django.conf.urls.defaults import *
 import dj_simple_sms
 import reportcard
 import msgs
+import charts
 
 from django.contrib import admin
 
@@ -27,5 +28,6 @@ urlpatterns = patterns('',
 	url(r'^home/' , 'reg.views.main'),
 	url(r'^kab234/' , 'reportcard.views.main'),
         url(r'^msgs/',include('msgs.urls')),
+        url(r'^charts/',include('charts.urls')),
 	
 )

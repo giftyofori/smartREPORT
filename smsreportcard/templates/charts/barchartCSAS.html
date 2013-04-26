@@ -1,0 +1,32 @@
+{%extends "charts/base.html"%}
+{% block title %} hjhjhh{% endblock %}
+{% block extrahead %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Subject', 'Number Of Student', 'Failed'],
+          ['Core Maths.',  {{data1}},      2],
+          ['English',  {{data2}},      3],
+          ['Intergrated Sci.',  {{data3}},       11],
+          ['Social Stud.',  {{data4}},      0]
+        ]);
+
+        var options = {
+          title: 'Student performance in Core Subjects(Pass Mark is 70 and above Fail Mark is 30 and Below)',
+          vAxis: {title: 'Subjects',  titleTextStyle: {color: 'red'}},
+          width:700,height:350,
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  {% endblock %}
+{% block charts %}
+<div id="chart_div" class="chart_div" style="width:900; height:600"></div>
+
+{% endblock %}

@@ -10,7 +10,7 @@ TEMPLATE_DEBUG = DEBUG
 ADMIN_MEDIA_PREFIX = '/static/grappelli2/grappelli/'
 
 ADMINS = (
-    ('admin', 'admin@example.com'),
+    ('admin', 'kwawannor@gmail.com.com'),
 )
 
 GEOS_LIBRARY_PATH = ''
@@ -162,6 +162,7 @@ INSTALLED_APPS = (
 	'dj_simple_sms',
 	'msgs',
 	'spreadsheet',
+	'charts',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

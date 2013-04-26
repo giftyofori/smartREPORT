@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Smart Report| {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/img/favicon.ico"  sizes="128x128" />
+
+    <!--styles -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/smartrepo.css" rel="stylesheet">
+    
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .containa{
+        width: 900px;
+        margin: 10px auto;
+        padding: 30px;
+        background-color: rgba(0,0,0,0.2);
+      }
+      
+      .chart-container{
+	margin: 10px auto;
+	padding:5px;
+	width:700px;
+	height: 600px;
+	background-color: rgba(0,0,0,0);
+	padding: 5px;
+      }
+      .chart_div{
+	margin: 20px 20px 20px 50px;
+      }
+    </style>
+    {% block extrahead %}
+    
+    {% endblock %}
+    <link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    
+  </head>
+
+  <body onload="">
+     <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid" style="background: url(/static/img/smartreportmain.png) repeat;">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Smart Rport</a>
+          <div class="nav-collapse collapse">
+			
+            <div class="navbar-text pull-right">
+			{% if user.is_staff %}
+
+              Enter <a href="{% url admin:index %}" class="navbar-link">ADMIN page</a>
+
+			{% endif %}
+			{% if user.is_authenticated %}
+			<a href="/accounts/logout/?next=/kab234/" class="navbar-link" style="color: red">Logout</a>
+			{% endif %}
+			{% if not user.is_authenticated %}
+			<a href="/accounts/login/?next=/kab234/" class="navbar-link">Login as User </a> | <a href="/admin" class="navbar-link">Login as Admin</a>
+			{% endif %}
+            </div>
+            <ul class="nav">
+              <li class="active"><a href="/kab234/">Home</a></li>
+              <li><a href="#about">Reports</a></li>
+              <li><a href="/charts/base/">Charts</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="containa">
+    </div>
+    <div class="chart-container" id="chart-container">
+      {%block charts%}
+      
+      {% endblock %}
+    </div>
+
+    <footer class="foota">
+        <h6>&copy;Smart Report 2013</h6>
+    </footer>  
+  </body>
+</html>
+
