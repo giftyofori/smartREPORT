@@ -57,7 +57,7 @@ class ReportForm(ModelForm):
 
 class Report_contentForm(forms.Form):
 	subject = forms.CharField(max_length = 50 ,label = "" , widget=forms.TextInput(attrs={'class':'subject','placeholder':'Enter Subject Name Here'}))
-	exam_mark = forms.IntegerField(max_value =  100 ,label = "" , initial =70,widget=forms.TextInput(attrs={'class':'intform' ,'placeholder':'Examination Mark' ,'maxlength':'3'}))
+	exam_mark = forms.IntegerField(max_value =  100 ,label = "" , initial =75,widget=forms.TextInput(attrs={'class':'intform' ,'placeholder':'Examination Mark' ,'maxlength':'3'}))
 	test_mark = forms.IntegerField(max_value =  200 ,label = "" ,initial =20, widget=forms.TextInput(attrs={'class':'intform' ,'placeholder':'Test Mark','maxlength':'2'}))
 	percentage = forms.IntegerField(max_value = 100 , required = False , label = "" , widget=forms.TextInput(attrs={'class':'intform','style':'background-color:rgba(0,0,0,0.1)' , 'placeholder':'Percentage'}))
 	grade = forms.CharField(max_length = 2, required = False , label = "",widget=forms.TextInput(attrs={'class':'grade', 'placeholder':'Grade','style':'background-color:rgba(0,0,0,0.1)'}))

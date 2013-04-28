@@ -20,7 +20,7 @@ class ESInline(admin.TabularInline):
 
 class CourseAdmin(admin.ModelAdmin):
 	inlines = [ESInline]
-	list_display = ['course_name' , 'number_student']
+	list_display = ['course_name']
 	order = 1
 class StudentAdmin(admin.ModelAdmin):
 	list_display = ['id_number','first_name','middle_name','last_name','course','form','phone_number','clas']

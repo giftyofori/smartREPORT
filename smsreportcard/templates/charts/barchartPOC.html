@@ -8,16 +8,20 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Subject', 'Passed', 'Failed'],
-          ['Core Maths.',  {{data1}},      {{fdata1}}],
-          ['English',  {{data2}},      {{fdata2}}],
-          ['Intergrated Sci.',  {{data3}},       {{fdata3}}],
-          ['Social Stud.',  {{data4}},      {{fdata4}}]
+          ['Core Maths.',  {{pdata1}},      {{fdata1}}],
+          ['English',  {{pdata2}},      {{fdata2}}],
+          ['Intergrated Sci.',  {{pdata3}},       {{fdata3}}],
+          ['Social Stud.',  {{pdata4}},      {{fdata4}}],
+          ['{{elect0}}',  {{pdata5}},      {{fdata5}}],
+          ['{{elect1}}',  {{pdata6}},      {{fdata6}}],
+          ['{{elect2}}',  {{pdata7}},      {{fdata7}}],
+          ['{{elect3}}',  {{pdata8}},      {{fdata8}}],
         ]);
 
         var options = {
-          title: 'Student performance in Core Subjects(Pass Mark is 70 and above Fail Mark is 30 and Below)',
+          title: 'Student performance in class {{klass}}',
           vAxis: {title: 'Subjects',  titleTextStyle: {color: 'red'}},
-          width:700,height:350,
+          width:750,height:400,
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));

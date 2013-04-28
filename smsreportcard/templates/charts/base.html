@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Smart Report| {% block title %}{% endblock %}</title>
+    <title>Smart Report| {{title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -79,13 +79,25 @@
             <ul class="nav">
               <li class="active"><a href="/kab234/">Home</a></li>
               <li><a href="#about">Reports</a></li>
-              <li><a href="/charts/base/">Charts</a></li>
+	      <li class="dropdown">
+                <a href="/charts/base/" class="dropdown-toggle" data-toggle="dropdown">Chats <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/charts/CSAS/">CSAC</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">By Class</li>
+		  {% for class in classes %}
+                  <li><a href="/charts/POC/?class={{class.name}}">{{class.name}}</a></li>
+		  {%endfor%}
+                </ul>
+	      
             </ul>
           </div><!--/.nav-collapse -->
+	  
         </div>
       </div>
     </div>
     <div class="containa">
+      <p style="display: inline;text-align: center;font-size: 20px;margin-left: 270px;">{{title}}</p>
     </div>
     <div class="chart-container" id="chart-container">
       {%block charts%}
@@ -95,7 +107,24 @@
 
     <footer class="foota">
         <h6>&copy;Smart Report 2013</h6>
-    </footer>  
+    </footer>
+    
+         <script src="/static/js/smartrepo.js"></script>
+    <script src="/static/bootstrap/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-button.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+    <script src="/static/bootstrap/js/backbone.js"></script>
+    <script src="/static/bootstrap/js/underscore-min.js"></script>
   </body>
 </html>
 

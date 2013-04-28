@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 from phonenumber_field.modelfields import PhoneNumberField
 from spreadsheet.views import create_spreadsheet
+from django.contrib.auth.models import User
  
 #from _reportcard.views import index_number
 class Index(models.Model):
@@ -35,8 +36,6 @@ Course Model
 """
 class Course(models.Model):
 	course_name = models.CharField(max_length = 50)
-	number_student = models.IntegerField("Students Offering Course" ,max_length = 4)
-	
 	def __unicode__(self):
 		return self.course_name	
 
@@ -106,14 +105,12 @@ class Student(models.Model):
 		
 	class Meta: 
 		db_table = 'students'
-		
-#not in use .... skip this model
+"""		
 class Teaches(models.Model):
 	teacher_id = models.IntegerField(max_length= 8)
 	subject_name = models.CharField(max_length = 50)
-
-	class_name = models.CharField(max_length = 50)
-	period = None
+	user = models.ForeignKey(User)
+	teaches = modles.ForiengnKey(Class)
 	
 	
 	def __unicode__(self):
@@ -122,11 +119,13 @@ class Teaches(models.Model):
 
 	class Meta:
 		db_table = 'teaches'
+"""
 #not in use ....skip this model
 class Teacher(models.Model):
-	#subject = models.ForeignKey(Subject)
 	id_number = models.IntegerField(max_length = 6)
 	name = models.CharField(max_length = 50)
+	user = models.ForeignKey(User)
+	teaches = models.ForeignKey(Class)
 	
 	def __unicode__(self):
 		return self.name
@@ -256,6 +255,14 @@ class Report_content(models.Model):
 
 	
 
-		
-
-		
+"""		
+#stores each class and it spreadsheet key to db
+class SPKey(models.Model):
+	key = models.CharField(max_length = 50)
+	clas = models.ForeignKey(Class)
+	
+	def __unicode__(self):
+		return self.key
+	class Meta:
+		db_table="spkey"
+"""		

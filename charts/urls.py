@@ -12,5 +12,7 @@ urlpatterns = patterns('charts.views',
     url(r'^piechart/$','piechart'),
     url(r'^barchart/$','barchart'),
     url(r'^CSAS/((?P<term>.*)/)?$' ,'CSAS'),
+    url(r'^POC/$' ,'POC'),
+
 
 )    
