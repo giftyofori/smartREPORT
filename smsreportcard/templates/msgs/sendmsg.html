@@ -6,6 +6,7 @@
         <!-- Email Section -->
         {% ifequal action "email" %}
         <form action ="/msgs/email/{{student.id}}/" method ="post">
+         <h6>{{sent}}</h6>
         <hr>
             {% if student.Email %}
         <div class="row-fluid">
@@ -38,6 +39,7 @@
     <!-- SMS section -->
     {% ifequal action "sms" %}
         <form action ="/msgs/sms/{{student.id}}/" method ="post">
+        <h6 style=""color:pink>{{sent}}</h6>
         <hr>
             {% if student.phone_number %}
         <div class="row-fluid">

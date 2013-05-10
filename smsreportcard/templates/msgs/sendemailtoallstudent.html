@@ -1,0 +1,29 @@
+{% extends 'home/main.html'%}
+{% block mainblock%}
+    <div class="span9">
+        <div class="hero-unit">
+        <form action ="/msgs/bulkemail/" method ="post">
+         <h6>{{sent}}</h6>
+        <hr>
+        <div class="row-fluid">
+            <h3>Message will be sent to all students</h3>
+        </div>
+        <hr>
+        <div class="row-fluid">
+            <h6 style="color:pink"> {{emailform.subject.errors}}</h6>
+            {{emailform.subject}}
+        </div>
+        <hr>
+        <div class="row-fluid">
+           <h6 style="color:pink"> {{emailform.body.errors}}</h6>
+            {{emailform.body}}
+        </div>
+
+           
+        <hr>
+        <button class="btn btn-primary" type="submit" name = "add"  style="margin-left: 10.5cm">send message</button>
+    </form>
+        </div>
+    </div>
+
+{% endblock %}j

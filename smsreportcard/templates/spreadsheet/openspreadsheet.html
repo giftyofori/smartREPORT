@@ -1,0 +1,23 @@
+{% extends 'home/main.html'%}
+{%block title%}<title>Send Messsage </title> {% endblock %}
+{% block mainblock %}
+<div class="span9">
+    <div class="hero-unit">
+        {% for sp in spreadsheets %}
+        <div class="row-fluid">
+           
+           <div class="span4 msgcentermenu">
+            <h5>{{sp.clas}}<h5>
+                <h6><a href="/report/getspreadsheet/?spkey={{sp.key}}">open</a></h6>
+            </div>
+         
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+    
+</div>
+
+
+
+{% endblock%}

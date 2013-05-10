@@ -106,33 +106,31 @@ class Student(models.Model):
 	class Meta: 
 		db_table = 'students'
 """		
-class Teaches(models.Model):
-	teacher_id = models.IntegerField(max_length= 8)
-	subject_name = models.CharField(max_length = 50)
-	user = models.ForeignKey(User)
-	teaches = modles.ForiengnKey(Class)
-	
-	
-	def __unicode__(self):
-		return self.id
 
-
-	class Meta:
-		db_table = 'teaches'
 """
 #not in use ....skip this model
 class Teacher(models.Model):
-	id_number = models.IntegerField(max_length = 6)
+	id_number = models.IntegerField(max_length = 6,unique = True)
 	name = models.CharField(max_length = 50)
 	user = models.ForeignKey(User)
-	teaches = models.ForeignKey(Class)
 	
 	def __unicode__(self):
 		return self.name
 	class Meta:
 		db_table = "teacher"
 
+class Teaches(models.Model):
+	subject =  models.CharField(max_length=40)
+	classcode = models.CharField(max_length=4)
+	teaches = models.ForeignKey(Teacher)
+	
+	
+	def __unicode__(self):
+		return self.subject
 
+
+	class Meta:
+		db_table = 'teaches'
 class Student_Info(models.Model):
 	student = models.ForeignKey(Student)
 	#class_id = models.ForeignKey(Class)

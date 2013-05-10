@@ -63,7 +63,7 @@ def createvar(spreadsheetkey,worksheetkey):
 	gd_client.email = email
 	gd_client.password = password
 	gd_client.ProgrammaticLogin()
-	var = ["StudentId","StudentName","ClassWrk1","ClassWrk2","ClassWrk3","ClassWrk4","ClassWrk5","ClassWrk6","ClassWrk7","ClassWrk8","ClassWrk9","ClassWrk10","Test1","Test2","ExaminationMarks"]
+	var = ["StudentId","StudentName","ClassWrk1","ClassWrk2","ClassWrk3","Test1","Test2","ExaminationMarks"]
 	for i in range(len(var)):
 		gd_client.UpdateCell(row=1,col=i+1,inputValue=var[i],key=spreadsheetkey,wksht_id=worksheetkey)
 	return 1
@@ -77,6 +77,7 @@ def getwksheetID(spreadsheetkey):
 	keys =[]
 	for i, entry in enumerate(feed.entry):
 		keys.append(entry.id.text.split('/')[-1])
+	keys.remove("od6")
 	return keys
 
 

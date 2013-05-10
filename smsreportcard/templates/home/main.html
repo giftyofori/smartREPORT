@@ -89,19 +89,25 @@
             <ul class="nav nav-list">
               <li class="nav-header">Report</li>
               
-              <li class="active"><a href="/report/all">All Reports</a></li>
-	      <li><a href="/report/arw/">Start Report Wizzard</a></li>
-	    
-	     
-              <li><a href="/msgs/sendcurrenetreports/">Send All Current Reports</a></li>
-	       <li ><a href="/report/add_report/">Add Rport</a></li>
+              <li class="active"><a href="/report/all">ALL REPORTS</a></li>
+	      <li role="presentation" class="divider"></li>
+	      <li><a href="/report/computereports/?query=all">COMPUTE REPORTS</a></li>
+	      <li role="presentation" class="divider"></li>
+	     <li><a href="/report/spreadsheet/">ADD TO SPREADSHEET</a></li>
+	     <li role="presentation" class="divider"></li>
+              <li><a href="/msgs/sendcurrenetreports/">SEND ALL REPORTS</a></li>
+	      <li role="presentation" class="divider"></li>
               <li class="nav-header">Student</li>
-	      <li class="active"><a href="/report/allstudent/">All Students</a></li>
-              <li><a href="/report/addstudent/">Add Student</a></li>
+	      <li class="active"><a href="/report/allstudent/">ALL STUDENTS</a></li>
+	      <li role="presentation" class="divider"></li>
+              <li><a href="/report/addstudent/">ADD STUDENT</a></li>
+	      <li role="presentation" class="divider"></li>
               <li class="nav-header">Messaging</li>
-	      <li  class="active"><a href="/msgs/sendmessage/">Create Message</a></li>
-              <li><a href="#">Emails</a></li>
-              <li><a href="#">SMS</a></li>
+	      <li  class="active"><a href="/msgs/sendmessage/">CREATE MESSAGE</a></li>
+	      <li role="presentation" class="divider"></li>
+              <li><a href="/msgs/bulkemail/">MAIL ALL STUDENTS</a></li>
+	      <li role="presentation" class="divider"></li>
+              <li><a href="/msgs/sendsmstoallstudent/">SMS ALL STUDENTS</a></li>
               
             </ul>
           </div><!--/.well -->
@@ -123,21 +129,23 @@
 	  {% if reports %}
             <div class="span4">
               <h2>Reports</h2>
+	      {% comment %}
 			  {% for report in reports %}
               <li style="list-style: none;margin-bottom: 2px">{{ report.student_name }} </li>
 			  {% endfor %}
-              <p><a class="btn btn-primary" href="/report/all/">View All &raquo;</a></p>
+	      {% endcomment %}
+              <p><a class="btn btn-primary" href="/report/all/">VIEW ALL</a></p>
             </div><!--/span-->
 	    {% endif %}
             <div class="span4">
-              <h2>Teacher Info</h2>
-              <p> Some Teacher InfoSome Teacher Info Some Teacher Info Some Teacher Info Some Teacher Info Some Teacher Info Some Teacher Info Some Teacher Info Some Teacher Info Some Teacher InfoSomeSome Teacher InfoSomeSomeSome</p> </p>
-              <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+              <h2>Spread Sheets</h2>
+              <p></p> </p>
+              <p><a class="btn btn-primary" href="/report/spreadsheet/">OPEN SPREADSHEETS</a></p>
             </div><!--/span-->
             <div class="span4">
               <h2>Messages</h2>
-              <p>Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  Sent Messages  </p>
-              <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+              <p></p>
+              <p><a class="btn btn-primary" href="/msgs/sendmessage/">OPEN MESAAGE ENTER</a></p>
             </div><!--/span-->
           </div><!--/row-->
         </div><!--/span-->

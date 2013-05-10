@@ -12,6 +12,9 @@ from srHttp.HttpRequestPermissionDenied import *
 from sptime import getyear as currentTerm
 from django.core.exceptions import ObjectDoesNotExist
 from spreadsheet.views import addStudentToWksheet
+from spreadsheet.models import SPKey
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
 
 
 """
@@ -24,13 +27,60 @@ def index_number():
 	all = list(Student.objects.all())
 	last_entry = all[-1]
 	id_number = last_entry.id_number + 1
-	return id_number
+
+
+"""	return id_number
+@login_required
+def reports():
+	user = request.user
+	if user.is_staff:
+		allstudents =len(Students.objects.all())
+	else:return HttpRequestPermissionDenied(template ="error/denied.html" ,message="Permisssion Denied. You Are Not Staff")
+"""
+
+
+
+@login_required
+def openspreadcenter(request):
+	if request.method=="GET":
+		spreadsheets = SPKey.objects.all()
+	return render_to_response('spreadsheet/openspreadsheet.html',dict(spreadsheets=spreadsheets ))
+
+@login_required
+def getsp(request):
+	key = request.GET.get("spkey","")
+	clas=SPKey.objects.get(key=key)
+	user = request.user
+	klas = clas.clas
+	classcode=klas.classcode
+	user = User.objects.get(username=user)
+	teacher = Teacher.objects.get(user=user)
+	teaches = Teaches.objects.filter(teaches=teacher)
+	perm_list = []
+	for i in teaches:
+		perm_list.append(i.classcode)
+	if classcode in perm_list:
+		url ="https://docs.google.com/spreadsheet/ccc?key=%s#gid=1" %key
+		return HttpResponseRedirect(url)
+	else:
+		return HttpRequestPermissionDenied(template ="error/denied.html" ,message="Permisssion Denied. You Are To A Teacher Of That Class")
+	
+	return HttpResponse("Done")
+		
+		
+	
+	
+	
+	
+
 
 @login_required
 def main(request):
+	user=request.user
+	spreadsheets = SPKey.objects.all()
 	#quering all reports in the system and displaying the recent 5 added
 	recent_reports = list(Report.objects.all().order_by('-date_created'))[:5]
-	return render_to_response('home/main.html',dict(user=request.user , reports = recent_reports))
+	return render_to_response('home/main.html',dict(user=user , reports = recent_reports))
 
 @login_required
 @csrf_exempt
@@ -62,8 +112,9 @@ def add_student(request):
 		StudentId = postdata.get("id_number",None)
 		StudentName = "%s %s %s" %(postdata.get("first_name",""),postdata.get("middle_name",""),postdata.get("last_name",""))
 		data = dict(studentid=StudentId,studentname=StudentName)#,ClassWrk1='',ClassWrk2='',ClassWrk3='',ClassWrk4='',ClassWrk5='',ClassWrk6='',ClassWrk7='',ClassWrk8='',ClassWrk9='',ClassWrk10='',Test1='',Test2='',ExaminationMarks='')
-		addStudentToWksheet(klass ,data)
+		
 		if studentform.is_valid():
+			addStudentToWksheet(klass ,data)
 			student = studentform.save()
 			Index.objects.create(number = new_id_number)
 			return HttpResponseRedirect(student.get_absolute_url())
@@ -92,6 +143,66 @@ def get_student(request, pk):
 	student = Student.objects.filter(id = pk)
 	allstudent = Student.objects.all()
 	return render_to_response('reportcard/student.html' , dict(student = student , allstudent = allstudent, user = request.user))
+
+@login_required
+@csrf_exempt
+def compute_reports(request):
+	courses = Course.objects.all()
+	classes = Class.objects.all()
+	class_list = [str(clas.name) for clas in classes]
+	course_list=[str(course.course_name) for course in courses]
+	data = request.GET
+	query = data.get("query","all")
+	print query
+	if request.method =="GET":
+		if query=="all":
+			_allstudent = Student.objects.all()
+			allstudent = []
+			for student in _allstudent:
+				try:
+					report = Report.objects.get(student=student,term=currentTerm)
+				
+				except ObjectDoesNotExist:
+					allstudent.append(student)
+		elif query=="1" or query=="2" or query=="3":
+				
+			query = int(query)
+			_allstudent = Student.objects.filter(form=query)
+			print _allstudent
+			allstudent = []
+			for student in _allstudent:
+				try:
+					report = Report.objects.get(student=student,term=currentTerm)
+				
+				except ObjectDoesNotExist:
+					allstudent.append(student)
+		elif query in class_list:
+			clas = Class.objects.get(name=query)
+			_allstudent = Student.objects.filter(clas=clas)
+			allstudent = []
+			print allstudent
+			for student in _allstudent:
+				try:
+					report = Report.objects.get(student=student,term=currentTerm)
+				
+				except ObjectDoesNotExist:
+					allstudent.append(student)
+		elif query in course_list:
+			_allstudent = Student.objects.filter(course=query)
+			allstudent = []
+			print allstudent
+			for student in _allstudent:
+				try:
+					report = Report.objects.get(student=student,term=currentTerm)
+				
+				except ObjectDoesNotExist:
+					allstudent.append(student)
+	return render_to_response('reportcard/computereport.html' , dict(students = allstudent , user = request.user,courses=courses ,classes=classes))
+	pass
+
+
+
+
 @login_required
 def all_student(request,query=None,course=None,klass=None):
 	courses = Course.objects.all()
@@ -147,6 +258,7 @@ def searchstudent(request):
 	
 	pass
 
+
 @login_required
 @csrf_exempt
 def add_StudentReport(request , pk ):
@@ -155,8 +267,11 @@ def add_StudentReport(request , pk ):
 		if user.has_perm('reportcard.add_report'):
 			student = Student.objects.get(id = pk)
 			studentreports = Report.objects.filter(student = student)
+			hascurent = Report.objects.filter(student=student,term=currentTerm)
 			if len(studentreports) > 8:
 				return HttpResponseRedirect('/report/syserror__me_ot_mtn9/')
+			elif hascurent:
+				return HttpResponseRedirect(hascurent[0].get_absolute_url())
 			else:
 				course = Course.objects.get(course_name = student.course)
 				reportform = ReportForm(initial = {'id_number_student': student.id_number , 'student_name': student.last_name +' '+ student.middle_name +' '
@@ -167,7 +282,7 @@ def add_StudentReport(request , pk ):
 				subjects = core_subjects + list(elective_subjects)
 				report_contentforms = []
 				for i in range(8):
-					report_contentforms.append(Report_contentForm(prefix = 'f%s'%i, initial={'subject':subjects[i]}))
+					report_contentforms.append(Report_contentForm(prefix = 'f%s'%i, initial={'subject':subjects[i],'exam_mark':random.randint(i+37,100),'test_mark':random.randrange(i+3,30)}))
 		else: return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion to add report")
 			
 	if request.method == 'POST':
@@ -299,43 +414,89 @@ Add Report Wizzard
 This function is used to add reports of a particular group of people say sci A
 version 0.1
 """
+def teaches(user):
+	user = User.objects.get(username=user)
+	try:
+		teacher =  Teacher.objects.get(user=user)
+		teaches = Teaches.objects.filter(teaches=teacher)
+		klasses = []
+		for  i in teaches:
+			klass = Class.objects.get(classcode=i.classcode)
+			klasses.append(klass)
+		
+		class_tuple = ()
+		for i in range(len(klasses)):
+			class_tuple = class_tuple + ((str(klasses[i]),str(klasses[i])),)
+		return class_tuple
+	except ObjectDoesNotExist:
+		return (("None","None"),)	
+def teachessubjects(user):
+	user = User.objects.get(username=user)
+	try:
+		teacher =  Teacher.objects.get(user=user)
+		teaches = Teaches.objects.filter(teaches=teacher)
+		
+		teaches_tuple = ()
+		for i in range(len(teaches)):
+			teaches_tuple = teaches_tuple + ((str(teaches[i].subject),str(teaches[i].subject)),)
+		return teaches_tuple
+	except ObjectDoesNotExist:
+		return (("None","None"),)	
+
+
+
 @login_required
-def arw(request , stage):
-	# check the stage...there are 3 stages
+def arw_main(request):
+	return render_to_response('reportcard/arw_main.html',dict(user=request.user))
+
+def arwstages(request):
+	data = request.GET
 	user = request.user
-	if user.has_perm('reportcard.add_report') or user.has_perm('reportcard.change_report') or user.has_perm('reportcard.delete_report'):
-		form = None
-		status = 'No'
-		allstudent = None
-		studentrc = None
-		if request.method =="GET":
-			if stage == "stage1":
-				form = ClassForm()
-				status = "stage1"
-				print "stage 1"
-			if stage == "stage2":
-				selectedclass = request.GET.get('classes','none')#get the selected class from the stage 1
-				#getcourseofstudent(selectedclass)
-				class SubjectForm(forms.Form):
-					clas = forms.CharField(max_length=None,min_length=None,initial=selectedclass, widget=forms.HiddenInput(attrs={}))
-					subjects = forms.ChoiceField(widget=forms.Select(attrs={'onclick':'nextlink();'}), choices=maketupleofsubjects(getcourseofstudent(selectedclass)))
-				form = SubjectForm()
-				print "we are in stage two"
-				status="stage2"
-			if stage =="stage3":
-				status ='stage3'
-				data = request.GET
-				clas=data.get('clas','None')
-				subjects = data.get('subjects','None')
-				clas = Class.objects.get(name=clas)
-				allstudent = Student.objects.filter(clas = clas)
-				form = Report_contentForm()
-				studentrc={}# will be dictionary of stduent and their report_content form 
-				for i in range(len(allstudent)):
-					studentrc[allstudent[i]] = form
-				print allstudent
-			return render_to_response('reportcard/arw.html',dict(studentrc=studentrc,stage = stage ,allstudent=allstudent,form=form,status=status ,user = request.user))
-	else: return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion To Start The Report Wizzard")
+	stage=data.get("stage","stageone")
+	if stage == "stageone":
+		class ClassForm(forms.Form):
+			classes = forms.ChoiceField(widget=forms.Select(attrs={'onclick':'nextlink();'}),choices=teaches(user))
+		classform=ClassForm()
+		return render_to_response('reportcard/arwstage1.html',dict(classform=classform))
+def arwstagtwo(request):
+	if request.method == "GET":
+		data= request.GET
+		user=request.user
+		klass=data.get("classes","None")
+		class SubjectForm(forms.Form):
+			clas = forms.CharField(max_length=None,min_length=None,initial=klass, widget=forms.HiddenInput(attrs={}))
+			subjects = forms.ChoiceField(widget=forms.Select(attrs={'onclick':'nextlink();'}), choices=teachessubjects(user))
+		form = SubjectForm()
+	return render_to_response('reportcard/arwstagtwo.html',dict(user=user,form=form))
+
+def arwstagethree(request):
+	if request.method =="GET":
+		data = request.GET
+		clas=data.get('clas','None')
+		subjects = data.get('subjects','None')
+		clas = Class.objects.get(name=clas)
+		allstudent = Student.objects.filter(clas = clas)
+		_allstudent = []
+		for student in allstudent:
+			studentreport = Report.objects.filter(student=student,term=currentTerm)
+			if studentreport:
+				allstudent.remove(student)
+		studentrc={}
+		form = Report_contentForm()
+		for i in range(len(allstudent)):
+			studentrc[allstudent[i]] = form
+	if request.method =="POST":
+		form = Report_contenForm(request.POST)
+		
+	
+	return render_to_response('reportcard/arwstagethree.html',dict(subjects=subjects,studentrc=studentrc,allstudent=allstudent,form=form,user = request.user))
+	
+
+	
+
+
+@login_required
+
 	
 
 #objects not found

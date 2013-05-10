@@ -1,0 +1,46 @@
+def arw(request , stage):
+	# check the stage...there are 3 stages
+	user = request.user
+	if user.has_perm('reportcard.add_report') or user.has_perm('reportcard.change_report') or user.has_perm('reportcard.delete_report'):
+		form = None
+		status = 'No'
+		allstudent = None
+		studentrc = None
+		if request.method =="GET":
+			print "in get"
+			if stage == "stage1":
+				form = ClassForm()
+				status = "stage1"
+				print "stage 1"
+			if teaches(user)==(("None","None"),):
+				return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Are Not A Teacher Please Login Again")
+			else:
+			
+				if stage == "stage2":
+					classes = request.GET.get('classes','none')
+					selectedclass = request.GET.get('classes','none')
+					print selectedclass
+					#get the selected class from the stage 1
+					#getcourseofstudent(selectedclass)
+					class SubjectForm(forms.Form):
+						clas = forms.CharField(max_length=None,min_length=None,initial=selectedclass, widget=forms.HiddenInput(attrs={}))
+						subjects = forms.ChoiceField(widget=forms.Select(attrs={'onclick':'nextlink();'}), choices=maketupleofsubjects(getcourseofstudent(selectedclass)))
+					form = SubjectForm()
+					print "we are in stage two"
+				status="stage2"
+			if stage =="stage3":
+				status ='stage3'
+				data = request.GET
+				clas=data.get('clas','None')
+				subjects = data.get('subjects','None')
+				clas = Class.objects.get(name=clas)
+				allstudent = Student.objects.filter(clas = clas)
+				form = Report_contentForm()
+				studentrc={}# will be dictionary of stduent and their report_content form 
+				for i in range(len(allstudent)):
+					studentrc[allstudent[i]] = form
+				print allstudent
+			print form
+			print status
+			return render_to_response('reportcard/arw.html',dict(studentrc=studentrc,stage = stage ,allstudent=allstudent,form=form,status=status ,user = request.user))
+	else: return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion To Start The Report Wizzard")

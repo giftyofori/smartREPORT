@@ -4,6 +4,17 @@ from models import *
 """
 Adminstaration Customization
 """
+class TeachesInline(admin.TabularInline):
+	model = Teaches
+	extra = 2
+class TeacherAdmin(admin.ModelAdmin):
+	inlines = [TeachesInline]
+	list_display = ['id_number','name','user',]
+	list_filter = ['teaches','id_number']
+	search_fields = ['name','teaches']
+
+
+
 class ReportcontentInline(admin.TabularInline):
 	model= Report_content
 	extra = 1
@@ -33,7 +44,7 @@ class ClassADmin(admin.ModelAdmin):
 
 #admin.site.register(Student)
 #admin.site.register(Student_Info)
-admin.site.register(Teacher)
+admin.site.register(Teacher,TeacherAdmin)
 #admin.site.register(Teaches)
 admin.site.register(Report, ReportAdmin)
 #admin.site.register(Report_content)

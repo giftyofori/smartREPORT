@@ -16,6 +16,7 @@ urlpatterns = patterns('msgs.views',
     url(r'^sendsmstoallstudent/$','sendsmstoallstudent'),
     url(r'^sendallreports/$','sarts'),
     url(r'^sendcurrenetreports','sendcurrenetreports'),
+    url(r'^bulkemail/$','sendemailtoallstudent')
     #url(r'sendbulkemail/$','sendbulkemail'),
     #url(r'^msgs/sms/(\d+)/$' , ''),
     #url(r'sendemail/$', 'sndemail'),

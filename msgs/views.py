@@ -20,27 +20,60 @@ systememail = "kwawannor@gmail.com"
 ###
 @login_required
 @csrf_exempt
+def sendemailtoallstudent(request):
+    sent =""
+    if request.method =="GET":
+        emailform = Emailform()
+    if request.method =="POST":
+        emailform = Emailform(request.POST)
+        p = request.POST
+        students = Student.objects.all()
+        email_list = []
+        for student in students:
+            if student.Email:
+                email_list.append(student.Email)
+            else:
+                pass
+        if emailform.is_valid():
+            sent="Email Sent"
+            subject = p.get('subject','')
+            body = p.get('body','')
+            emailsubject = "%(subprfx)s %(subject)s" % {'subprfx':subprfx , 'subject':subject}
+            try:
+                email = EmailMessage(emailsubject,body,"smartreport21@gmail.com",email_list)
+                email.send()
+                print "Email sent"
+            except:
+                print "Msg not sent"
+    return render_to_response('msgs/sendemailtoallstudent.html',dict(sent=sent,emailform=emailform))
+    
+
+
+@login_required
+@csrf_exempt
 def sendemail(request , id ):
     """
     For send emails toa partitcular student parents
     """
     #first checking users permission to send email
     user = request.user
+    sent=""
     if user.has_perm("msgs.add_email"):
         p = request.POST
         student = Student.objects.get(id = id)
-        studentemail = "scentedvolume3@gmail.com" #str(student.Email)
+        studentemail = str(student.Email)#"scentedvolume3@gmail.com" #str(student.Email)
         if request.method == 'GET':
             emailform = Emailform()
-    
+            
         if request.method =='POST':
             emailform = Emailform(request.POST)
             if emailform.is_valid():
+                sent="Email Sent"
                 subject = p.get('subject','')
                 body = p.get('body','')
                 emailsubject = "%(subprfx)s %(subject)s" % {'subprfx':subprfx , 'subject':subject}
                 try:
-                    email = EmailMessage(emailsubject,body,"kwawannor@gmail.com",['fhim50@gmail.com',])
+                    email = EmailMessage(emailsubject,body,"smartreport21@gmail.com",[studentemail,])
                     email.send()
                     print "Email sent"
                 except:
@@ -49,8 +82,7 @@ def sendemail(request , id ):
                     Email.objects.create(student = student , subject = subject ,body = body, sent_by=request.user)
                 except:
                     print "Email was not saves"
-                return HttpResponse("Msg Sent")
-        return render_to_response('msgs/sendmsg.html', dict(student = student ,emailform = emailform , user = request.user ,action="email"))
+        return render_to_response('msgs/sendmsg.html', dict(sent=sent,student = student ,emailform = emailform , user = request.user ,action="email"))
     return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion To Send EMAIL To Students")
 @login_required
 @csrf_exempt
@@ -61,17 +93,17 @@ def sendsms(request ,pk):
     if user.has_perm("msgs.add_sms"):
         if request.method == 'GET':
            smsform = SMSform()
+           sent=""
         if request.method == 'POST':
             smsform = SMSform(request.POST)
             #if smsform.is_valid():
+            sent="Message Sent"
             smsbody = request.POST.get('body','')
             smsmsg = SMS(to_number = phone_number , from_number = "SHS" , body = smsbody)
             smsmsg.send()
-            try:
-                Sms.objects.create(student = student , body = smsbody ,sent_by = request.user)
-            except:
-                pass
-        return render_to_response('msgs/sendmsg.html' ,dict(student = student ,smsform = smsform , user = request.user, action="sms"))
+            Sms.objects.create(student = student , body = smsbody ,sent_by = request.user)
+
+        return render_to_response('msgs/sendmsg.html' ,dict(sent=sent,student = student ,smsform = smsform , user = request.user, action="sms"))
     return HttpRequestPermissionDenied(template ="error/denied.html" ,message="You Do not Have Permisssion To Send SMS To Students")        
   
 

@@ -27,12 +27,12 @@ DATABASES = {
 
 # Email Settings
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'kwawannor'
-EMAIL_HOST_PASSWORD = 'fuckhimto'
+EMAIL_HOST_USER = 'smartreport21'
+EMAIL_HOST_PASSWORD = '0243637783'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'kwawannor@gmail.com'
-SERVER_EMAIL = 'kwaw@gmail.com'
+DEFAULT_FROM_EMAIL = 'smartreport21@gmail.com'
+SERVER_EMAIL = 'smartreport21@gmail.com'
 EMAIL_SUBJECT_PREFIX ="[SHS Report System]"
 
 #

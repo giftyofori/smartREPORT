@@ -1,0 +1,32 @@
+{% extends 'home/main.html'%}
+
+{% block title%}<title>ARW</title>{% endblock %}
+
+{% block mainblock %}
+<div class="span9">
+    <div class="hero-unit" style="">
+        <div class="row-fluid">
+                <div class="span3" style="margin-top:4px">
+                   
+                    <b>Please Select Your Class</b>
+                </div>
+                <form method='get' action="/report/arwstagtwo/">
+                <div class="span2">
+                    
+                    {{classform.classes}}
+                </div>
+                <div class="span2">
+                    <script type="text/javascript">
+                    </script>
+                </div>
+                <div class="span2" style="margin-top:none" >
+                    <strong id="nextlink" style="color: rgba(0,0,255,0.1)">next</strong>
+                    <!--<input type=submit value="next" />-->
+                </div>
+                </form>
+                
+            </div><!--end rwo-fluid-->
+        </div>
+    </div>
+    
+{% endblock %}

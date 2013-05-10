@@ -1,0 +1,76 @@
+{% extends 'home/main.html'%}
+
+{% block title%}<title>ARW</title>{% endblock %}
+
+{% block mainblock %}
+<div class="span9">
+    <div class="hero-unit" style="">
+        <div class="row-fluid"><h3>{{subjects}}</h3></div>
+        <hr>
+         <div class="row-fluid">
+            
+                    <div class="span3">
+                        <div class=row-fluid">
+                            <div class="span2">
+                                <h6>ID</h6>
+                            </div>
+                            <div class="span6">
+                                <h6>Student Name</h6>
+                          
+                            </div>
+                                    
+                        </div>
+                      
+                    </div>
+                    
+                    <div id="id" class="span8">
+                        <div class="row-fluid">
+                            <div class="span3">
+                               <h6>Examination Score</h6>
+                            </div>
+                            <div class="span3">
+                                <h6>Class Test Score</h6>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>            
+                <hr>
+                <form action="" method="post" >
+                    {% for student , form in studentrc.items %}
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <div class=row-fluid">
+                                    <div class="span3">
+                                       {{student.id_number}} 
+                                    </div>
+                                    <div class="span3">
+                                        {{student.first_name}}
+                                    </div>
+                                    <div class="span2"">
+                                        {{student.last_name}}
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                            <div id="id" class="span8">
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        {{form.exam_mark}}
+                                    </div>
+                                    <div class="span3">
+                                        {{form.test_mark}}
+                                    </div>
+                                </div>
+                     
+                            </div>
+                        </div>
+                
+                    {%endfor%}
+                    
+            </form>
+        
+    </div>
+</div>
+{% endblock %}
